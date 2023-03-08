@@ -1,0 +1,15 @@
+form {
+  height: 10rem;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  font-size: 3rem;
+  height: 60%;
+}
+
+button {
+  font-size: 3rem;
+  height: 60%;
+}
