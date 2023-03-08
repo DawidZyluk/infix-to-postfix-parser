@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { storeExpression } from "../services/reducers/expressionReducer";
 import styles from "./Input.module.css";
 
 const Input = () => {
   const [expression, setExpression] = useState("");
+  const dispatch = useDispatch();
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    setExpression("");
-    console.log(expression);
+    dispatch(storeExpression(expression))
   };
 
   return (
