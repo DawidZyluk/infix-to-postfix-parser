@@ -1,15 +1,17 @@
-form {
-  height: 10rem;
+.form {
+  height: 5rem;
   display: flex;
   align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
-input {
-  font-size: 3rem;
-  height: 60%;
+.input {
+  height: 100%;
+  flex-grow: 1;
 }
 
 button {
-  font-size: 3rem;
-  height: 60%;
+  padding: 0 2rem;
+  height: 100%;
 }

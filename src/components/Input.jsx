@@ -10,9 +10,10 @@ const Input = ({onSetExpression}) => {
   }
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={styles.form} onSubmit={submitHandler}>
       <input
         type="text"
+        className={styles.input}
         value={enteredExpression}
         onChange={(event) => setEnteredExpression(event.target.value)}
       />

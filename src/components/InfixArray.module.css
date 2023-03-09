@@ -1,3 +1,23 @@
-div {
+.array {
+  display: flex;
+  width: 100%;
+  align-items: center;
   font-size: 3rem;
+  height: 5rem;
+}
+
+.title {
+
+  margin-right: 1rem;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.element {
+  background-color: lightblue;
+  border: 1px solid black;
+  padding: .2rem .6rem;
 }
