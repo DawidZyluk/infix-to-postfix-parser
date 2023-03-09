@@ -4,6 +4,7 @@ import CharactersArray from "./components/CharactersArray";
 import Input from "./components/Input";
 import InfixArray from "./components/InfixArray";
 import Wrapper from "./components/Wrapper";
+import PostfixArray from "./components/PostfixArray";
 
 function App() {
   const [expression, setExpression] = useState("");
@@ -15,8 +16,8 @@ function App() {
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
-      {/* <CharactersArray data={expression} name={"Characters"}/> */}
       <InfixArray expression={expression}/>
+      <PostfixArray expression={expression}/>
     </Wrapper>
   );
 }
