@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './CharactersArray.module.css'
 
 const CharactersArray = ({data, name}) => {
-  const array = data ? [...data] : [];
+  const array = [...data];
 
   return (
     <div className={styles.array}>
