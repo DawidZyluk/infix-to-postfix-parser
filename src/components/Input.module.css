@@ -9,6 +9,8 @@
 .input {
   height: 100%;
   flex-grow: 1;
+  font-size: 2rem;
+  padding-left: 1rem;
 }
 
 button {

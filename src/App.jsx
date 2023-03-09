@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import InfixArray from "./components/InfixArray";
+import CharactersArray from "./components/CharactersArray";
 import Input from "./components/Input";
+// import PostfixArray from "./components/PostfixArray";
 import Wrapper from "./components/Wrapper";
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
-      <InfixArray expression={expression}/>
+      <CharactersArray data={expression} name={"Infix"}/>
+      {/* <PostfixArray expression={expression}/> */}
     </Wrapper>
   );
 }

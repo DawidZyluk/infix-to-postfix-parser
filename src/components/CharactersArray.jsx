@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "./InfixArray.module.css";
+import React from 'react'
+import styles from './CharactersArray.module.css'
 
-const InfixArray = ({ expression }) => {
-  const array = [...expression];
+const CharactersArray = ({data, name}) => {
+  const array = data ? [...data] : [];
 
   return (
     <div className={styles.array}>
-      <p className={styles.title}>Infix array:</p>
+      <p className={styles.title}>{name} array:</p>
       <table>
         <tbody>
           <tr>
@@ -21,7 +21,7 @@ const InfixArray = ({ expression }) => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default InfixArray;
+export default CharactersArray
