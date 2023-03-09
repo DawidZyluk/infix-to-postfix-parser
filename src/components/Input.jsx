@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import styles from "./Input.module.css";
 
-const Input = () => {
-  const [expression, setExpression] = useState("");
+const Input = ({onSetExpression}) => {
+  const [enteredExpression, setEnteredExpression] = useState("");
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    setExpression("");
-    console.log(expression);
-  };
+    onSetExpression(enteredExpression)
+  }
 
   return (
     <form onSubmit={submitHandler}>
       <input
         type="text"
-        value={expression}
-        onChange={(event) => setExpression(event.target.value)}
+        value={enteredExpression}
+        onChange={(event) => setEnteredExpression(event.target.value)}
       />
       <button>Calculate</button>
     </form>
