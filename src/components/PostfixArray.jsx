@@ -28,16 +28,19 @@ const PostfixArray = ({ expression }) => {
       ) {
         output.push(stack.pop());
       }
-      stack.push(char);
+      if(char !== ')') stack.push(char);
     }
     if (char === "(") stack.push(char);
     if (char === ")") {
       while (stack[stack.length - 1] != "(") output.push(stack.pop());
       stack.pop();
+      stack.pop();
     }
   }
-  output.push(numberString);
+  if(numberString !== '') output.push(numberString);
   while (stack.length > 0) output.push(stack.pop());
+
+  console.log(output);
   return <CharactersArray data={output} name={"Postfix"} />;
 };
 

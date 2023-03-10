@@ -17,7 +17,7 @@ const InfixArray = ({ expression }) => {
   }
   if (numberString.length > 0) output.push(numberString);
 
-  console.log(output);
+  // console.log(output);
 
   return <CharactersArray data={output} name={"Infix"} />;
 };
