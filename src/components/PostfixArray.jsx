@@ -7,25 +7,32 @@ const PostfixArray = ({ expression }) => {
     ["-", 1],
     ["*", 2],
     ["/", 2],
+    ["(", 0],
+    [")", 0],
   ]);
 
   let output = [];
   let stack = [];
   let numberString = "";
   for (let char of expression) {
+    if ((char >= "0" && char <= "9") || char === "." || char === ",")
+      numberString += char;
     if (precedence.has(char)) {
-      if (numberString.length > 0) output.push(numberString);
-      numberString = "";
-      while (stack.length > 0 && precedence[-1] > precedence[char]) {
+      if (numberString.length > 0) {
+        output.push(numberString);
+        numberString = "";
+      }
+      while (
+        stack.length > 0 &&
+        precedence.get(stack[stack.length - 1]) > precedence.get(char)
+      ) {
         output.push(stack.pop());
       }
       stack.push(char);
-    } else {
-      numberString += char;
     }
-    if(char === '(') stack.push(char)
-    if(char === ')') {
-      while(stack[-1] != '(') output.push(stack.pop());
+    if (char === "(") stack.push(char);
+    if (char === ")") {
+      while (stack[stack.length - 1] != "(") output.push(stack.pop());
       stack.pop();
     }
   }
