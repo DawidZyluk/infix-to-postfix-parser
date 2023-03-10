@@ -5,10 +5,10 @@ const PostfixArray = ({ expression }) => {
   const precedence = new Map([
     ["+", 1],
     ["-", 1],
-    ["*", 2],
     ["/", 2],
-    ["(", 0],
-    [")", 0],
+    ["*", 3],
+    ["(", 10],
+    [")", 10],
   ]);
 
   let output = [];
@@ -23,19 +23,21 @@ const PostfixArray = ({ expression }) => {
         numberString = "";
       }
       while (
-        stack.length > 0 &&
+        stack[stack.length-1] !== '(' &&
         precedence.get(stack[stack.length - 1]) > precedence.get(char)
       ) {
         output.push(stack.pop());
       }
       if(char !== ')') stack.push(char);
+      // stack.push(char);
     }
     if (char === "(") stack.push(char);
     if (char === ")") {
-      while (stack[stack.length - 1] != "(") output.push(stack.pop());
+      while (stack[stack.length - 1] != "(" || stack.length === 0) output.push(stack.pop());
       stack.pop();
       stack.pop();
     }
+    // 12-2+ 12/(2*2)*3
   }
   if(numberString !== '') output.push(numberString);
   while (stack.length > 0) output.push(stack.pop());
