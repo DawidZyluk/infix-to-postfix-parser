@@ -3,21 +3,21 @@ import { useDispatch } from "react-redux";
 import { storeExpression } from "../services/reducers/expressionReducer";
 import styles from "./Input.module.css";
 
-const Input = () => {
-  const [expression, setExpression] = useState("");
-  const dispatch = useDispatch();
+const Input = ({onSetExpression}) => {
+  const [enteredExpression, setEnteredExpression] = useState("");
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(storeExpression(expression))
-  };
+    onSetExpression(enteredExpression)
+  }
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={styles.form} onSubmit={submitHandler}>
       <input
         type="text"
-        value={expression}
-        onChange={(event) => setExpression(event.target.value)}
+        className={styles.input}
+        value={enteredExpression}
+        onChange={(event) => setEnteredExpression(event.target.value)}
       />
       <button>Calculate</button>
     </form>
