@@ -3,16 +3,15 @@
   width: 100%;
   align-items: center;
   font-size: 3rem;
-  height: 5rem;
+  height: 7rem;
 }
 
 .title {
-
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 table {
-  border-spacing: 0;
+  border-spacing: .2rem; 
   border-collapse: collapse;
 }
 

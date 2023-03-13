@@ -3,9 +3,9 @@ import CharactersArray from "./CharactersArray";
 
 const PostfixArray = ({ expression }) => {
   const precedence = new Map([
-    ["+", 1],
-    ["-", 1],
-    ["/", 2],
+    ["+", 2],
+    ["-", 2],
+    ["/", 3],
     ["*", 3],
     ["(", 10],
     [")", 10],
@@ -37,7 +37,8 @@ const PostfixArray = ({ expression }) => {
       stack.pop();
       stack.pop();
     }
-    // 12-2+ 12/(2*2)*3
+    // 4/(2+2)*2
+    // 4 2 2 + / 2 *
   }
   if(numberString !== '') output.push(numberString);
   while (stack.length > 0) output.push(stack.pop());
