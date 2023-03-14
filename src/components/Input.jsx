@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { storeExpression } from "../services/reducers/expressionReducer";
 import styles from "./Input.module.css";
 
 const Input = ({onSetExpression}) => {
