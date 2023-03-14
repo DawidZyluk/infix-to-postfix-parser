@@ -30,9 +30,14 @@ export function toInfix(expression) {
 export function toPostfix(expression) {
   let output = [];
   let stack = [];
+  let stringNumber = "";
   for (let char of expression) {
-    if (char >= "0" && char <= "9") output.push(char);
+    if (char >= "0" && char <= "9") stringNumber += char;
     if (precedence.has(char)) {
+      if(stringNumber.length > 0) {
+        output.push(stringNumber);
+        stringNumber = "";
+      }
       while (
         stack[stack.length - 1] !== undefined &&
         stack[stack.length - 1] !== "(" &&
