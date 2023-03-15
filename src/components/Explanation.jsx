@@ -17,7 +17,9 @@ const Explanation = ({ data }) => {
         <button onClick={() => clickHandler(1)}>{`>`}</button>
         <button onClick={() => setIndex(data.length-1)}>{`>>`}</button>
       </div>
-      <CharactersArray data={data} name={"Infix"} current={index} />
+      <CharactersArray data={data} name={"Infix"} current={index} fixed="true"/>
+      <CharactersArray data={data} name={"Stack"} fixed="true"/>
+      <CharactersArray data={data} name={"Output"} fixed="true"/>
     </>
   );
 };

@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from './CharactersArray.module.css'
 
-const CharactersArray = ({data, name, current}) => {
+const CharactersArray = ({data, name, current, fixed=false}) => {
   const array = data ? [...data] : [];
 
   return (
-    <div className={styles.array}>
+    <div className={`${fixed ? styles["array-fixed"] : styles.array}`}>
       {name ? <p className={styles.title}>{name} array:</p> : null}
-      <table>
+      <table className={`${fixed ? styles["table-fixed"] : styles.table}`}>
         <tbody>
           <tr>
             {array.map((element, index) => {
