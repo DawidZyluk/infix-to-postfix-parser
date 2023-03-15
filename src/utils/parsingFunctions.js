@@ -24,17 +24,21 @@ export function toInfix(expression) {
   return output;
 }
 
-
-//1+2*3-4
-// 1 2 3 * + 4 -
 export function toPostfix(expression) {
   let output = [];
   let stack = [];
   let stringNumber = "";
-  for (let char of expression) {
+  for (let index = 0; index < expression.length; index++) {
+    let char = expression[index];
     if (char >= "0" && char <= "9") stringNumber += char;
-    if (precedence.has(char)) {
-      if(stringNumber.length > 0) {
+    if (
+      (char === "-" && index === 0) ||
+      stack[stack.length - 1] === "(" ||
+      (precedence.has(stack[stack.length - 1]) && stringNumber.length === 0)
+    ) {
+      if(!stringNumber.includes('-')) stringNumber += "-";
+    } else if (precedence.has(char)) {
+      if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
       }
@@ -47,14 +51,15 @@ export function toPostfix(expression) {
       }
       stack.push(char);
     }
-    if(char === '(') stack.push(char)
-    if(char === ')') {
-      while(stack[stack.length - 1] !== "(" && stack.length > 0){
-        output.push(stack.pop())
+    if (char === "(") stack.push(char);
+    if (char === ")") {
+      while (stack[stack.length - 1] !== "(" && stack.length > 0) {
+        output.push(stack.pop());
       }
       stack.pop();
     }
   }
+  if (stringNumber.length > 0) output.push(stringNumber);
   while (stack.length > 0) output.push(stack.pop());
   return output;
 }

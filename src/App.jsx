@@ -15,8 +15,8 @@ function App() {
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
-      <CharactersArray data={toInfix(expression)} name={"Infix"} />;
-      <CharactersArray data={toPostfix(expression)} name={"Postfix"} />;
+      <CharactersArray data={toInfix(expression)} name={"Infix"} />
+      <CharactersArray data={toPostfix(expression)} name={"Postfix"} />
     </Wrapper>
   );
 }
