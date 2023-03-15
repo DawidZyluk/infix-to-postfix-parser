@@ -14,13 +14,15 @@ function App() {
     setExpression(expression);
   }
 
+  const postfixData = toPostfix(expression);
+
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
       <CharactersArray data={toInfix(expression)} name={"Infix"} />
-      <CharactersArray data={toPostfix(expression)} name={"Postfix"} /> 
+      <CharactersArray data={postfixData.output} name={"Postfix"} /> 
       <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>Show Explanation</button>
-      {showExplanation ? <Explanation data={toInfix(expression)}/> : null}
+      {showExplanation ? <Explanation infix={toInfix(expression)} postfixData={postfixData}/> : null}
     </Wrapper>
   );
 }
