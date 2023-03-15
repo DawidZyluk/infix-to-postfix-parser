@@ -1,0 +1,7 @@
+.controls {
+  display: flex;
+}
+
+.controls button {
+  padding: 1rem;
+}

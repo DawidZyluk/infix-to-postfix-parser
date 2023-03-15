@@ -1,18 +1,18 @@
 import React from 'react'
 import styles from './CharactersArray.module.css'
 
-const CharactersArray = ({data, name}) => {
+const CharactersArray = ({data, name, current}) => {
   const array = data ? [...data] : [];
 
   return (
     <div className={styles.array}>
-      <p className={styles.title}>{name} array:</p>
+      {name ? <p className={styles.title}>{name} array:</p> : null}
       <table>
         <tbody>
           <tr>
             {array.map((element, index) => {
               return (
-                <td key={index} className={styles.element}>
+                <td key={index} className={`${styles.element} ${current === index && styles.active}`}>
                   {element}
                 </td>
               );

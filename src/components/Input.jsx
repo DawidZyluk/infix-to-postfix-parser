@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Input.module.css";
 
 const Input = ({onSetExpression}) => {
-  const [enteredExpression, setEnteredExpression] = useState("");
+  const [enteredExpression, setEnteredExpression] = useState("1+2*3-4");
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -17,7 +17,7 @@ const Input = ({onSetExpression}) => {
         value={enteredExpression}
         onChange={(event) => setEnteredExpression(event.target.value)}
       />
-      <button>Calculate</button>
+      <button className={styles["calculate-button"]}>Calculate</button>
     </form>
   );
 };

@@ -18,7 +18,7 @@
   outline: none;
 }
 
-button {
+.calculate-button {
   font-weight: 700;
   text-transform: uppercase;
   padding: 0 1rem;
@@ -27,6 +27,6 @@ button {
   right: 0;
 }
 
-button:hover {
+.calculate-button:hover {
   cursor: pointer;
 }
