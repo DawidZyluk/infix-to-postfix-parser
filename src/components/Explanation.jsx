@@ -12,8 +12,10 @@ const Explanation = ({ data }) => {
   return (
     <>
       <div className={styles.controls}>
+        <button onClick={() => setIndex(0)}>{`<<`}</button>
         <button onClick={() => clickHandler(-1)}>{`<`}</button>
         <button onClick={() => clickHandler(1)}>{`>`}</button>
+        <button onClick={() => setIndex(data.length-1)}>{`>>`}</button>
       </div>
       <CharactersArray data={data} name={"Infix"} current={index} />
     </>
