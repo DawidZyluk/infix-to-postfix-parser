@@ -27,6 +27,7 @@ export function toInfix(expression) {
 export function toPostfix(expression) {
   const stackIterations = [];
   const outputIterations = [];
+  const stringNumberIterations = [];
   const output = [];
   const stack = [];
   let stringNumber = "";
@@ -84,7 +85,8 @@ export function toPostfix(expression) {
       }
       stack.pop();
     }
-
+    
+    iterateAndPushToArray(stringNumber, stringNumberIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
 
@@ -95,5 +97,5 @@ export function toPostfix(expression) {
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack)
   outputIterations.push(output)
-  return { output, stackIterations, outputIterations };
+  return { output, stringNumberIterations, stackIterations, outputIterations };
 }

@@ -22,7 +22,7 @@ function App() {
       <CharactersArray data={toInfix(expression)} name={"Infix"} />
       <CharactersArray data={postfixData.output} name={"Postfix"} /> 
       <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>Show Explanation</button>
-      {showExplanation ? <Explanation infix={toInfix(expression)} postfixData={postfixData}/> : null}
+      {showExplanation ? <Explanation infix={expression} postfixData={postfixData}/> : null}
     </Wrapper>
   );
 }
