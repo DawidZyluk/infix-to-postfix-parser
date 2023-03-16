@@ -12,7 +12,7 @@ const Explanation = ({ infix, postfixData }) => {
   const currentExplanation = postfixData.explanationsLog[index]
 
   const maxIndex = postfixData.stackIterations.length;
-
+  console.log(postfixData)
 
   const clickHandler = (step) => {
     if(index + step >= 0 && index + step < maxIndex) setIndex(prevState => prevState + step)

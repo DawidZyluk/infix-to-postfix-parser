@@ -1,3 +1,11 @@
+import {
+  iterateAndPushToArray,
+  caseOfOperator,
+  caseOfRightParenthesis,
+  evalAnd,
+  evalOr,
+} from "./helperFunctions";
+
 const precedence = new Map([
   ["+", 2],
   ["-", 2],
@@ -31,26 +39,8 @@ export function toPostfix(expression) {
   const stack = [];
   let stringNumber = "";
 
-  function iterateAndPushToArray(from, to) {
-    function* arrayIterator(array) {
-      for (let element of array) {
-        yield element;
-      }
-    }
-
-    let singleIteration = [];
-    for (let result of arrayIterator(from)) {
-      singleIteration.push(result);
-    }
-    to.push(singleIteration);
-  }
-
   for (let index = 0; index < expression.length; index++) {
     const char = expression[index];
-
-    let caseOfRightParenthesis;
-    let caseOfNegation;
-    let caseOfOperator;
 
     if (char >= "0" && char <= "9") {
       stringNumber += char;
@@ -63,27 +53,10 @@ export function toPostfix(expression) {
         stringNumber.length === 0 &&
         char !== "(")
     ) {
-      caseOfNegation = evalOr(
-        char === "-" && index === 0,
-        stack[stack.length - 1] === "(" && char === "-",
-        precedence.has(stack[stack.length - 1]) &&
-          stringNumber.length === 0 &&
-          char !== "("
-      );
+      explanationsLog.push({ type: "Negation", case: caseOfNegation(stringNumber, stack, precedence, char, index) });
       stringNumber += "-";
-      explanationsLog.push(
-        { type: "Negation", case: caseOfNegation },
-        
-      );
     } else if (precedence.has(char)) {
-      caseOfOperator = {
-        stringHasValue: stringNumber.length > 0,
-        shouldProceed: evalAnd(
-          stack[stack.length - 1] !== undefined,
-          stack[stack.length - 1] !== "(",
-          precedence.get(stack[stack.length - 1]) >= precedence.get(char)
-        ),
-      };
+      explanationsLog.push({ type: "Operator", case: caseOfOperator(stringNumber, stack, precedence, char) });
       if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
@@ -96,10 +69,6 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-      explanationsLog.push(
-        { type: "Operator", case: caseOfOperator },
-        
-      );
     }
     if (char === "(") {
       stack.push(char);
@@ -108,13 +77,10 @@ export function toPostfix(expression) {
       });
     }
     if (char === ")") {
-      caseOfRightParenthesis = {
-        stringHasValue: stringNumber.length > 0,
-        shouldProceed: evalAnd(
-          stack[stack.length - 1] !== "(",
-          stack.length > 0
-        ),
-      };
+      explanationsLog.push({
+        type: "Right parenthesis",
+        case: caseOfRightParenthesis(stringNumber, stack),
+      });
       if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
@@ -123,21 +89,11 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.pop();
-      explanationsLog.push(
-        {
-          type: "Right parenthesis",
-          case: caseOfRightParenthesis
-        },
-        
-      );
     }
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
-
-    // console.log(`Stack for ${index} iteration:`,stack)
-    // console.log(`Output for ${index} iteration:`,output)
   }
   if (stringNumber.length > 0) output.push(stringNumber);
   while (stack.length > 0) output.push(stack.pop());
@@ -152,24 +108,4 @@ export function toPostfix(expression) {
     outputIterations,
     explanationsLog,
   };
-}
-
-function evalOr(...statements) {
-  const trueStatements = [];
-  let value = false;
-  for (let index = 0; index < statements.length; index++) {
-    if (statements[index]) trueStatements.push(index);
-  }
-  if (trueStatements.length > 0) value = true;
-  return { value, trueStatements };
-}
-
-function evalAnd(...statements) {
-  const trueStatements = [];
-  let value = false;
-  for (let index = 0; index < statements.length; index++) {
-    if (statements[index]) trueStatements.push(index);
-  }
-  if (trueStatements.length === statements.length) value = true;
-  return { value, trueStatements };
 }
