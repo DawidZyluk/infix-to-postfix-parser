@@ -5,20 +5,6 @@ const precedence = new Map([
   ["*", 3],
 ]);
 
-const explanation = {
-  digit:
-    "If character is a digit append it to the strign number representation",
-  negation:
-    'If "-" appears at the beggining of the expression or "(" is at the top of the operator stack and the incoming character is "-" or incoming char is not "(" and any other operator is at the top of the operator stack then prepend "-" to the string number representatnion',
-  operator:
-    'If character is an operator check if string number representatnion holds any number. If it does push the number to the optput array and clear the string. Then while stack has any operators in it and "(" is not at the top of the stack and precedence of the operator at the top of the stack is greater than precedence of incominc operator push what\'s on the top of the stack to the output array. Then push the incoming operator to the operator stack',
-  leftParenthesis:
-    "If character is a left parenthesis then push it to the operator stack",
-  rightParenthesis:
-    'If character is a right parenthesis push string number to the output array then while character at the top of the stack is not "(" and stack is not empty push operator at the top of the stack to the output array then delete the left parenthesis',
-  end: "The End",
-};
-
 export function toInfix(expression) {
   let output = [];
   let numberString = "";
@@ -62,13 +48,13 @@ export function toPostfix(expression) {
   for (let index = 0; index < expression.length; index++) {
     const char = expression[index];
 
-    let whichCaseOfRightParenthesis;
-    let whichCaseOfNegation;
-    let whichCaseOfOperator;
+    let caseOfRightParenthesis;
+    let caseOfNegation;
+    let caseOfOperator;
 
     if (char >= "0" && char <= "9") {
       stringNumber += char;
-      explanationsLog.push({ type: "Digit", text: explanation.digit });
+      explanationsLog.push({ type: "Digit" });
     }
     if (
       (char === "-" && index === 0) ||
@@ -77,7 +63,7 @@ export function toPostfix(expression) {
         stringNumber.length === 0 &&
         char !== "(")
     ) {
-      whichCaseOfNegation = evalOr(
+      caseOfNegation = evalOr(
         char === "-" && index === 0,
         stack[stack.length - 1] === "(" && char === "-",
         precedence.has(stack[stack.length - 1]) &&
@@ -85,9 +71,12 @@ export function toPostfix(expression) {
           char !== "("
       );
       stringNumber += "-";
-      explanationsLog.push({ type: "Negation", text: explanation.negation });
+      explanationsLog.push(
+        { type: "Negation", case: caseOfNegation },
+        
+      );
     } else if (precedence.has(char)) {
-      whichCaseOfOperator = {
+      caseOfOperator = {
         stringHasValue: stringNumber.length > 0,
         shouldProceed: evalAnd(
           stack[stack.length - 1] !== undefined,
@@ -107,17 +96,19 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-      explanationsLog.push({ type: "Operator", text: explanation.operator });
+      explanationsLog.push(
+        { type: "Operator", case: caseOfOperator },
+        
+      );
     }
     if (char === "(") {
       stack.push(char);
       explanationsLog.push({
         type: "Left parenthesis",
-        text: explanation.leftParenthesis,
       });
     }
     if (char === ")") {
-      whichCaseOfRightParenthesis = {
+      caseOfRightParenthesis = {
         stringHasValue: stringNumber.length > 0,
         shouldProceed: evalAnd(
           stack[stack.length - 1] !== "(",
@@ -132,10 +123,13 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.pop();
-      explanationsLog.push({
-        type: "Right parenthesis",
-        text: explanation.rightParenthesis,
-      });
+      explanationsLog.push(
+        {
+          type: "Right parenthesis",
+          case: caseOfRightParenthesis
+        },
+        
+      );
     }
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
@@ -149,7 +143,7 @@ export function toPostfix(expression) {
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack);
   outputIterations.push(output);
-  explanationsLog.push({ type: "The End", text: explanation.end });
+  explanationsLog.push({ type: "The End" });
 
   return {
     output,

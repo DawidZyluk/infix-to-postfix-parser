@@ -5,3 +5,20 @@
   font-size: 2rem;
   border-radius: 1rem;
 }
+
+.statement {
+  display: inline;
+  font-weight: bold;
+}
+
+.true {
+  color: #38a538;
+}
+
+.false {
+  color: #a71a1a;
+}
+
+.unmached {
+  color: #777;
+}
