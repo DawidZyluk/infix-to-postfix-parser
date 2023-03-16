@@ -5,3 +5,11 @@
 .controls button {
   padding: 1rem;
 }
+
+.algorithm {
+  background-color: lightblue;
+  padding: 3rem;
+  margin: 2rem 0;
+  font-size: 2rem;
+  border-radius: 1rem;
+}

@@ -3,9 +3,16 @@ const precedence = new Map([
   ["-", 2],
   ["/", 3],
   ["*", 3],
-  // ["(", 10],
-  // [")", 10],
 ]);
+
+const explanation = {
+  cyfra: "Cyfra",
+  negacja: "Negacja",
+  znak: "Znak",
+  lNawias: "Lewy nawias",
+  pNawias: "Prawy nawias",
+  koniec: "Koniec",
+}
 
 export function toInfix(expression) {
   let output = [];
@@ -28,6 +35,7 @@ export function toPostfix(expression) {
   const stackIterations = [];
   const outputIterations = [];
   const stringNumberIterations = [];
+  const explanationsLog = [];
   const output = [];
   const stack = [];
   let stringNumber = "";
@@ -57,13 +65,17 @@ export function toPostfix(expression) {
 
   for (let index = 0; index < expression.length; index++) {
     let char = expression[index];
-    if (char >= "0" && char <= "9") stringNumber += char;
+    if (char >= "0" && char <= "9") {
+      stringNumber += char;
+      explanationsLog.push(explanation.cyfra)
+    }
     if (
       (char === "-" && index === 0) ||
       stack[stack.length - 1] === "(" ||
       (precedence.has(stack[stack.length - 1]) && stringNumber.length === 0)
     ) {
       if (!stringNumber.includes("-")) stringNumber += "-";
+      explanationsLog.push(explanation.negacja)
     } else if (precedence.has(char)) {
       if (stringNumber.length > 0) {
         output.push(stringNumber);
@@ -77,13 +89,18 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
+      explanationsLog.push(explanation.znak)
     }
-    if (char === "(") stack.push(char);
+    if (char === "(") {
+      stack.push(char);
+      explanationsLog.push(explanation.lNawias)
+    }
     if (char === ")") {
       while (stack[stack.length - 1] !== "(" && stack.length > 0) {
         output.push(stack.pop());
       }
       stack.pop();
+      explanationsLog.push(explanation.pNawias)
     }
     
     iterateAndPushToArray(stringNumber, stringNumberIterations);
@@ -97,5 +114,7 @@ export function toPostfix(expression) {
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack)
   outputIterations.push(output)
-  return { output, stringNumberIterations, stackIterations, outputIterations };
+  explanationsLog.push(explanation.koniec)
+
+  return { output, stringNumberIterations, stackIterations, outputIterations, explanationsLog };
 }

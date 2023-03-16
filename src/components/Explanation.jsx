@@ -11,6 +11,7 @@ const Explanation = ({ infix, postfixData }) => {
 
   const maxIndex = postfixData.stackIterations.length;
 
+  console.log(postfixData)
   const clickHandler = (step) => {
     if(index + step >= 0 && index + step < maxIndex) setIndex(prevState => prevState + step)
   }
@@ -23,10 +24,11 @@ const Explanation = ({ infix, postfixData }) => {
         <button onClick={() => clickHandler(1)}>{`>`}</button>
         <button onClick={() => setIndex(maxIndex-1)}>{`>>`}</button>
       </div>
-      <CharactersArray data={infix} name={"Characters"} current={index} fixed="true"/>
-      <CharactersArray data={currentStringNumberIteration} name={"String"} fixed="true"/>
-      <CharactersArray data={currentStackStep} name={"Stack"} fixed="true"/>
-      <CharactersArray data={currentOutputStep} name={"Output"} fixed="true"/>
+      <div className={styles.algorithm}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur officiis sapiente modi?</div>
+      <CharactersArray data={infix} name={"Characters array:"} current={index} fixed="true"/>
+      <CharactersArray data={currentStringNumberIteration} name={"String number:"} fixed="true"/>
+      <CharactersArray data={currentStackStep} name={"Stack array:"} fixed="true"/>
+      <CharactersArray data={currentOutputStep} name={"Output array:"} fixed="true"/>
     </>
   );
 };

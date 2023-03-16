@@ -19,8 +19,8 @@ function App() {
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
-      <CharactersArray data={toInfix(expression)} name={"Infix"} />
-      <CharactersArray data={postfixData.output} name={"Postfix"} /> 
+      <CharactersArray data={toInfix(expression)} name={"Infix array:"} />
+      <CharactersArray data={postfixData.output} name={"Postfix array:"} /> 
       <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>Show Explanation</button>
       {showExplanation ? <Explanation infix={expression} postfixData={postfixData}/> : null}
     </Wrapper>
