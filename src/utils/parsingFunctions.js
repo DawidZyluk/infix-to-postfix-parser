@@ -6,12 +6,12 @@ const precedence = new Map([
 ]);
 
 const explanation = {
-  cyfra: "Cyfra",
-  negacja: "Negacja",
-  znak: "Znak",
-  lNawias: "Lewy nawias",
-  pNawias: "Prawy nawias",
-  koniec: "Koniec",
+  digit: "If character is a digit append it to the strign number representation",
+  negation: 'If "-" appears at the beggining of the expression or "(" or any other operator is at the top of the operator stack then prepend "-" to the string number representatnion',
+  operator: 'If character is an operator check if string number representatnion holds any number. If it does push the number to the optput array and clear the string. Then while stack has any operators in it and "(" is not at the top of the stack and precedence of the operator at the top of the stack is greater than precedence of incominc operator push what\'s on the top of the stack to the output array. Then push the incoming operator to the operator stack',
+  leftParenthesis: "If character is a left parenthesis then push it to the operator stack",
+  rightParenthesis: 'If character is a right parenthesis while character at the top of the stack is not "(" and stack is not empty push operator at the top of the stack to the output array then delete the left parenthesis',
+  end: "The End",
 }
 
 export function toInfix(expression) {
@@ -67,7 +67,7 @@ export function toPostfix(expression) {
     let char = expression[index];
     if (char >= "0" && char <= "9") {
       stringNumber += char;
-      explanationsLog.push(explanation.cyfra)
+      explanationsLog.push(explanation.digit)
     }
     if (
       (char === "-" && index === 0) ||
@@ -75,7 +75,7 @@ export function toPostfix(expression) {
       (precedence.has(stack[stack.length - 1]) && stringNumber.length === 0)
     ) {
       if (!stringNumber.includes("-")) stringNumber += "-";
-      explanationsLog.push(explanation.negacja)
+      explanationsLog.push(explanation.negation)
     } else if (precedence.has(char)) {
       if (stringNumber.length > 0) {
         output.push(stringNumber);
@@ -89,18 +89,18 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-      explanationsLog.push(explanation.znak)
+      explanationsLog.push(explanation.operator)
     }
     if (char === "(") {
       stack.push(char);
-      explanationsLog.push(explanation.lNawias)
+      explanationsLog.push(explanation.leftParenthesis)
     }
     if (char === ")") {
       while (stack[stack.length - 1] !== "(" && stack.length > 0) {
         output.push(stack.pop());
       }
       stack.pop();
-      explanationsLog.push(explanation.pNawias)
+      explanationsLog.push(explanation.rightParenthesis)
     }
     
     iterateAndPushToArray(stringNumber, stringNumberIterations);
@@ -114,7 +114,7 @@ export function toPostfix(expression) {
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack)
   outputIterations.push(output)
-  explanationsLog.push(explanation.koniec)
+  explanationsLog.push(explanation.end)
 
   return { output, stringNumberIterations, stackIterations, outputIterations, explanationsLog };
 }
