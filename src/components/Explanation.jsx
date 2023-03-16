@@ -10,6 +10,8 @@ const Explanation = ({ infix, postfixData }) => {
   const currentOutputStep = postfixData.outputIterations[index]
   const currentExplanation = postfixData.explanationsLog[index]
 
+  console.log(infix[index])
+
   const maxIndex = postfixData.stackIterations.length;
 
   const clickHandler = (step) => {

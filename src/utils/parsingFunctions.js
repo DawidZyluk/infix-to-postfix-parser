@@ -6,13 +6,18 @@ const precedence = new Map([
 ]);
 
 const explanation = {
-  digit: "If character is a digit append it to the strign number representation",
-  negation: 'If "-" appears at the beggining of the expression or "(" or any other operator is at the top of the operator stack then prepend "-" to the string number representatnion',
-  operator: 'If character is an operator check if string number representatnion holds any number. If it does push the number to the optput array and clear the string. Then while stack has any operators in it and "(" is not at the top of the stack and precedence of the operator at the top of the stack is greater than precedence of incominc operator push what\'s on the top of the stack to the output array. Then push the incoming operator to the operator stack',
-  leftParenthesis: "If character is a left parenthesis then push it to the operator stack",
-  rightParenthesis: 'If character is a right parenthesis while character at the top of the stack is not "(" and stack is not empty push operator at the top of the stack to the output array then delete the left parenthesis',
+  digit:
+    'If character is a digit append it to the strign number representation',
+  negation:
+    'If "-" appears at the beggining of the expression or "(" is at the top of the operator stack and the incoming character is "-" or incoming char is not "(" and any other operator is at the top of the operator stack then prepend "-" to the string number representatnion',
+  operator:
+    'If character is an operator check if string number representatnion holds any number. If it does push the number to the optput array and clear the string. Then while stack has any operators in it and "(" is not at the top of the stack and precedence of the operator at the top of the stack is greater than precedence of incominc operator push what\'s on the top of the stack to the output array. Then push the incoming operator to the operator stack',
+  leftParenthesis:
+    "If character is a left parenthesis then push it to the operator stack",
+  rightParenthesis:
+    'If character is a right parenthesis push string number to the output array then while character at the top of the stack is not "(" and stack is not empty push operator at the top of the stack to the output array then delete the left parenthesis',
   end: "The End",
-}
+};
 
 export function toInfix(expression) {
   let output = [];
@@ -65,17 +70,30 @@ export function toPostfix(expression) {
 
   for (let index = 0; index < expression.length; index++) {
     let char = expression[index];
+    const isNegation = evalOr(
+      char === "-" && index === 0,
+      stack[stack.length - 1] === "(" && char === "-",
+      precedence.has(stack[stack.length - 1]) &&
+        stringNumber.length === 0 &&
+        char !== "("
+    );
+
+    console.log("isNegation",isNegation)
+
     if (char >= "0" && char <= "9") {
       stringNumber += char;
-      explanationsLog.push(explanation.digit)
+      explanationsLog.push(explanation.digit);
     }
     if (
       (char === "-" && index === 0) ||
-      stack[stack.length - 1] === "(" ||
-      (precedence.has(stack[stack.length - 1]) && stringNumber.length === 0)
+      (stack[stack.length - 1] === "(" && char === "-") ||
+      (precedence.has(stack[stack.length - 1]) &&
+        stringNumber.length === 0 &&
+        char !== "(")
     ) {
       if (!stringNumber.includes("-")) stringNumber += "-";
-      explanationsLog.push(explanation.negation)
+      // explanationsLog.pop();
+      explanationsLog.push(explanation.negation);
     } else if (precedence.has(char)) {
       if (stringNumber.length > 0) {
         output.push(stringNumber);
@@ -89,20 +107,24 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-      explanationsLog.push(explanation.operator)
+      explanationsLog.push(explanation.operator);
     }
     if (char === "(") {
       stack.push(char);
-      explanationsLog.push(explanation.leftParenthesis)
+      explanationsLog.push(explanation.leftParenthesis);
     }
     if (char === ")") {
+      if (stringNumber.length > 0) {
+        output.push(stringNumber);
+        stringNumber = "";
+      }
       while (stack[stack.length - 1] !== "(" && stack.length > 0) {
         output.push(stack.pop());
       }
       stack.pop();
-      explanationsLog.push(explanation.rightParenthesis)
+      explanationsLog.push(explanation.rightParenthesis);
     }
-    
+
     iterateAndPushToArray(stringNumber, stringNumberIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
@@ -112,9 +134,35 @@ export function toPostfix(expression) {
   }
   if (stringNumber.length > 0) output.push(stringNumber);
   while (stack.length > 0) output.push(stack.pop());
-  stackIterations.push(stack)
-  outputIterations.push(output)
-  explanationsLog.push(explanation.end)
+  stackIterations.push(stack);
+  outputIterations.push(output);
+  explanationsLog.push(explanation.end);
 
-  return { output, stringNumberIterations, stackIterations, outputIterations, explanationsLog };
+  return {
+    output,
+    stringNumberIterations,
+    stackIterations,
+    outputIterations,
+    explanationsLog,
+  };
+}
+
+function evalOr(...statements) {
+  const trueStatements = [];
+  let value = false;
+  for (let index = 0; index < statements.length; index++) {
+    if (statements[index]) trueStatements.push(index);
+  }
+  if (trueStatements.length > 0) value = true;
+  return { value, trueStatements };
+}
+
+function evalAnd(...statements) {
+  const trueStatements = [];
+  let value = false;
+  for (let index = 0; index < statements.length; index++) {
+    if (statements[index]) trueStatements.push(index);
+  }
+  if (trueStatements.length === statements.length) value = true;
+  return { value, trueStatements };
 }

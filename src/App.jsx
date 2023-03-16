@@ -7,7 +7,7 @@ import Explanation from "./components/Explanation";
 import { toInfix, toPostfix } from "./utils/parsingFunctions";
 
 function App() {
-  const [expression, setExpression] = useState("1+2*3-4");
+  const [expression, setExpression] = useState("(1+2)-(2*2)");
   const [showExplanation, setShowExplanation] = useState(false)
 
   const setExpressionHandler = (expression) => {
