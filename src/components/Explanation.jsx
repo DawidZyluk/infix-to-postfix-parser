@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CharactersArray from "./CharactersArray";
 import styles from "./Explanation.module.css";
+import ExplanationText from "./ExplanationText";
 
 const Explanation = ({ infix, postfixData }) => {
   const [index, setIndex] = useState(0);
@@ -9,8 +10,6 @@ const Explanation = ({ infix, postfixData }) => {
   const currentStackStep = postfixData.stackIterations[index]
   const currentOutputStep = postfixData.outputIterations[index]
   const currentExplanation = postfixData.explanationsLog[index]
-
-  console.log(infix[index])
 
   const maxIndex = postfixData.stackIterations.length;
 
@@ -26,7 +25,8 @@ const Explanation = ({ infix, postfixData }) => {
         <button onClick={() => clickHandler(1)}>{`>`}</button>
         <button onClick={() => setIndex(maxIndex-1)}>{`>>`}</button>
       </div>
-      <div className={styles.algorithm}>{currentExplanation}</div>
+      <div className={styles.algorithm}>{currentExplanation.text}</div>
+      <ExplanationText operatorType={currentExplanation.type} explanationCase={null}/>
       <CharactersArray data={infix} name={"Characters array:"} current={index} fixed="true"/>
       <CharactersArray data={currentStringNumberIteration} name={"String number:"} fixed="true"/>
       <CharactersArray data={currentStackStep} name={"Stack array:"} fixed="true"/>

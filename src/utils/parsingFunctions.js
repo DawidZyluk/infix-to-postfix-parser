@@ -7,7 +7,7 @@ const precedence = new Map([
 
 const explanation = {
   digit:
-    'If character is a digit append it to the strign number representation',
+    "If character is a digit append it to the strign number representation",
   negation:
     'If "-" appears at the beggining of the expression or "(" is at the top of the operator stack and the incoming character is "-" or incoming char is not "(" and any other operator is at the top of the operator stack then prepend "-" to the string number representatnion',
   operator:
@@ -57,32 +57,18 @@ export function toPostfix(expression) {
       singleIteration.push(result);
     }
     to.push(singleIteration);
-
-    // const it = arrayIterator(from);
-    // let result = it.next();
-    // let singleIteration = [];
-    // while (!result.done) {
-    //   singleIteration.push(result.value);
-    //   result = it.next();
-    // }
-    // to.push(singleIteration)
   }
 
   for (let index = 0; index < expression.length; index++) {
-    let char = expression[index];
-    const isNegation = evalOr(
-      char === "-" && index === 0,
-      stack[stack.length - 1] === "(" && char === "-",
-      precedence.has(stack[stack.length - 1]) &&
-        stringNumber.length === 0 &&
-        char !== "("
-    );
+    const char = expression[index];
 
-    console.log("isNegation",isNegation)
+    let whichCaseOfRightParenthesis;
+    let whichCaseOfNegation;
+    let whichCaseOfOperator;
 
     if (char >= "0" && char <= "9") {
       stringNumber += char;
-      explanationsLog.push(explanation.digit);
+      explanationsLog.push({ type: "Digit", text: explanation.digit });
     }
     if (
       (char === "-" && index === 0) ||
@@ -91,10 +77,24 @@ export function toPostfix(expression) {
         stringNumber.length === 0 &&
         char !== "(")
     ) {
-      if (!stringNumber.includes("-")) stringNumber += "-";
-      // explanationsLog.pop();
-      explanationsLog.push(explanation.negation);
+      whichCaseOfNegation = evalOr(
+        char === "-" && index === 0,
+        stack[stack.length - 1] === "(" && char === "-",
+        precedence.has(stack[stack.length - 1]) &&
+          stringNumber.length === 0 &&
+          char !== "("
+      );
+      stringNumber += "-";
+      explanationsLog.push({ type: "Negation", text: explanation.negation });
     } else if (precedence.has(char)) {
+      whichCaseOfOperator = {
+        stringHasValue: stringNumber.length > 0,
+        shouldProceed: evalAnd(
+          stack[stack.length - 1] !== undefined,
+          stack[stack.length - 1] !== "(",
+          precedence.get(stack[stack.length - 1]) >= precedence.get(char)
+        ),
+      };
       if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
@@ -107,13 +107,23 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-      explanationsLog.push(explanation.operator);
+      explanationsLog.push({ type: "Operator", text: explanation.operator });
     }
     if (char === "(") {
       stack.push(char);
-      explanationsLog.push(explanation.leftParenthesis);
+      explanationsLog.push({
+        type: "Left parenthesis",
+        text: explanation.leftParenthesis,
+      });
     }
     if (char === ")") {
+      whichCaseOfRightParenthesis = {
+        stringHasValue: stringNumber.length > 0,
+        shouldProceed: evalAnd(
+          stack[stack.length - 1] !== "(",
+          stack.length > 0
+        ),
+      };
       if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
@@ -122,7 +132,10 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.pop();
-      explanationsLog.push(explanation.rightParenthesis);
+      explanationsLog.push({
+        type: "Right parenthesis",
+        text: explanation.rightParenthesis,
+      });
     }
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
@@ -136,7 +149,7 @@ export function toPostfix(expression) {
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack);
   outputIterations.push(output);
-  explanationsLog.push(explanation.end);
+  explanationsLog.push({ type: "The End", text: explanation.end });
 
   return {
     output,
