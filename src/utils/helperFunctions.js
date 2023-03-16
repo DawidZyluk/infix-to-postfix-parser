@@ -13,12 +13,15 @@ export function iterateAndPushToArray(from, to) {
 }
 
 export function caseOfNegation(stringNumber, stack, precedence, char, index) {
-  return evalOr(
-    char === "-" && index === 0,
-    stack[stack.length - 1] === "(" && char === "-",
-    precedence.has(stack[stack.length - 1]) &&
-      stringNumber.length === 0 &&
-      char !== "(");
+  return {
+    stringHasValue: stringNumber.length > 0,
+    shouldProceed: evalOr(
+      char === "-" && index === 0,
+      stack[stack.length - 1] === "(" && char === "-",
+      precedence.has(stack[stack.length - 1]) &&
+        stringNumber.length === 0 &&
+        char !== "(")
+  }
 }
 
 
@@ -37,6 +40,13 @@ export function caseOfRightParenthesis(stringNumber, stack) {
   return {
     stringHasValue: stringNumber.length > 0,
     shouldProceed: evalAnd(stack[stack.length - 1] !== "(", stack.length > 0),
+  };
+}
+
+export function caseOfOutputing(stringNumber, stack) {
+  return {
+    stringHasValue: stringNumber.length > 0,
+    stackHasValue: stack.length > 0,
   };
 }
 

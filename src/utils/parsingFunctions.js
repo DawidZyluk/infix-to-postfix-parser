@@ -1,9 +1,9 @@
 import {
   iterateAndPushToArray,
+  caseOfNegation,
   caseOfOperator,
   caseOfRightParenthesis,
-  evalAnd,
-  evalOr,
+  caseOfOutputing,
 } from "./helperFunctions";
 
 const precedence = new Map([
@@ -39,6 +39,7 @@ export function toPostfix(expression) {
   const stack = [];
   let stringNumber = "";
 
+  explanationsLog.push({ type: "Start" });
   for (let index = 0; index < expression.length; index++) {
     const char = expression[index];
 
@@ -95,6 +96,7 @@ export function toPostfix(expression) {
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
   }
+  explanationsLog.push({ type: "Outputing", case: caseOfOutputing(stringNumber, stack) });
   if (stringNumber.length > 0) output.push(stringNumber);
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack);
