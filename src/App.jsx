@@ -4,8 +4,11 @@ import CharactersArray from "./components/CharactersArray";
 import Input from "./components/Input";
 import Wrapper from "./components/Wrapper";
 import Explanation from "./components/Explanation";
-import { toInfix, toPostfix } from "./utils/parsingFunctions";
+import { toInfix, toPostfix, calculatePostfix } from "./utils/parsingFunctions";
 
+// ADD INPUT VALIDATION, CALCULATION EXPLANATION, OTHER OPERATORS AND FUNCTIONS
+// ADD DIFFIRENT STYLES FOR CHARACTERS ARRAY EG. QUOTATIONS, ARRAY, TEXT
+  
 function App() {
   const [expression, setExpression] = useState("(-1+2)-(2*2)");
   const [showExplanation, setShowExplanation] = useState(false)
@@ -15,13 +18,14 @@ function App() {
   }
 
   const postfixData = toPostfix(expression);
-
+  
   return (
     <Wrapper>
       <Input onSetExpression={setExpressionHandler}/>
       <CharactersArray data={toInfix(expression)} name={"Infix array:"} />
       <CharactersArray data={postfixData.output} name={"Postfix array:"} /> 
-      <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>Show Explanation</button>
+      <div className="result">Answer: {calculatePostfix(postfixData.output)}</div>
+      <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>{showExplanation ? "Close Explanation" : "Show Explanation"}</button>
       {showExplanation ? <Explanation infix={expression} postfixData={postfixData}/> : null}
     </Wrapper>
   );

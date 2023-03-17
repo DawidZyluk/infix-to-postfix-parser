@@ -1,3 +1,30 @@
+export function handleToken(token) {
+  if (!isNaN(parseFloat(token))) {
+    stack.push(token);
+    return;
+  }
+
+  const right = parseFloat(stack.pop());
+  const left = parseFloat(stack.pop());
+
+  switch (token) {
+    case "+":
+      stack.push(left + right);
+      return;
+    case "-":
+      stack.push(left - right);
+      return;
+    case "*":
+      stack.push(left * right);
+      return;
+    case "/":
+      stack.push(left / right);
+      return;
+    default:
+      throw new Error(`Invalid token: ${token}`);
+  }
+};
+
 export function iterateAndPushToArray(from, to) {
   function* arrayIterator(array) {
     for (let element of array) {

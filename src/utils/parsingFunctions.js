@@ -54,10 +54,16 @@ export function toPostfix(expression) {
         stringNumber.length === 0 &&
         char !== "(")
     ) {
-      explanationsLog.push({ type: "Negation", case: caseOfNegation(stringNumber, stack, precedence, char, index) });
+      explanationsLog.push({
+        type: "Negation",
+        case: caseOfNegation(stringNumber, stack, precedence, char, index),
+      });
       stringNumber += "-";
     } else if (precedence.has(char)) {
-      explanationsLog.push({ type: "Operator", case: caseOfOperator(stringNumber, stack, precedence, char) });
+      explanationsLog.push({
+        type: "Operator",
+        case: caseOfOperator(stringNumber, stack, precedence, char),
+      });
       if (stringNumber.length > 0) {
         output.push(stringNumber);
         stringNumber = "";
@@ -96,7 +102,10 @@ export function toPostfix(expression) {
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
   }
-  explanationsLog.push({ type: "Outputing", case: caseOfOutputing(stringNumber, stack) });
+  explanationsLog.push({
+    type: "Outputing",
+    case: caseOfOutputing(stringNumber, stack),
+  });
   if (stringNumber.length > 0) output.push(stringNumber);
   while (stack.length > 0) output.push(stack.pop());
   stackIterations.push(stack);
@@ -110,4 +119,42 @@ export function toPostfix(expression) {
     outputIterations,
     explanationsLog,
   };
+}
+
+export function calculatePostfix(postfix) {
+  const handleToken = (token) => {
+    if (!isNaN(parseFloat(token))) {
+      stack.push(token);
+      return;
+    }
+
+    const right = parseFloat(stack.pop());
+    const left = parseFloat(stack.pop());
+
+    switch (token) {
+      case "+":
+        stack.push(left + right);
+        return;
+      case "-":
+        stack.push(left - right);
+        return;
+      case "*":
+        stack.push(left * right);
+        return;
+      case "/":
+        stack.push(left / right);
+        return;
+      default:
+        throw new Error(`Invalid token: ${token}`);
+    }
+  };
+
+  const stack = [];
+
+  for (let element of postfix) {
+    // console.log(element)
+    handleToken(element);
+  }
+
+  return stack.pop();
 }
