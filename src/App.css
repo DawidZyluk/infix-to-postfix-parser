@@ -23,3 +23,10 @@ body {
   margin: 3rem 0 1rem;
   padding: 1rem;
 }
+
+.result {
+  height: 7rem;
+  width: 100%;
+  font-size: 3rem;
+  text-align: left;
+}
