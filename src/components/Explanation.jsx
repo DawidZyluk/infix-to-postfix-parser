@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import CharactersArray from "./CharactersArray";
 import styles from "./Explanation.module.css";
 import ExplanationText from "./ExplanationText";
+import Modal from "./Modal";
 
-const Explanation = ({ infix, postfixData }) => {
+const Explanation = ({ infix, postfixData, onClose }) => {
   const [index, setIndex] = useState(0);
 
   const currentStringNumberIteration = postfixData.stringNumberIterations[index-2]
@@ -18,7 +19,7 @@ const Explanation = ({ infix, postfixData }) => {
   }
 
   return (
-    <>
+    <Modal onClose={onClose}>
       <div className={styles.controls}>
         <button onClick={() => setIndex(0)}>{`<<`}</button>
         <button onClick={() => clickHandler(-1)}>{`<`}</button>
@@ -31,7 +32,7 @@ const Explanation = ({ infix, postfixData }) => {
       <CharactersArray data={currentStringNumberIteration} name={"String number:"} fixed="true"/>
       <CharactersArray data={currentStackStep} name={"Stack array:"} fixed="true"/>
       <CharactersArray data={currentOutputStep} name={"Output array:"} fixed="true"/>
-    </>
+    </Modal>
   );
 };
 

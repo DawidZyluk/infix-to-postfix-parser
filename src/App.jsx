@@ -6,6 +6,7 @@ import Wrapper from "./components/Wrapper";
 import Explanation from "./components/Explanation";
 import { toInfix, toPostfix, calculatePostfix } from "./utils/parsingFunctions";
 
+// CLEAN APP.JSX FILE
 // ADD INPUT VALIDATION, CALCULATION EXPLANATION, OTHER OPERATORS AND FUNCTIONS
 // ADD DIFFIRENT STYLES FOR CHARACTERS ARRAY EG. QUOTATIONS, ARRAY, TEXT
   
@@ -26,7 +27,7 @@ function App() {
       <CharactersArray data={postfixData.output} name={"Postfix array:"} /> 
       <div className="result">Answer: {calculatePostfix(postfixData.output)}</div>
       <button className="explanation-button" onClick={() => setShowExplanation(!showExplanation)}>{showExplanation ? "Close Explanation" : "Show Explanation"}</button>
-      {showExplanation ? <Explanation infix={expression} postfixData={postfixData}/> : null}
+      {showExplanation && <Explanation infix={expression} postfixData={postfixData} onClose={() => setShowExplanation(!showExplanation)}/> }
     </Wrapper>
   );
 }
