@@ -19,12 +19,9 @@ body {
   background-color: rgb(40, 101, 161);
 }
 
-.explanation-button {
-  margin: 3rem 0 1rem;
-  padding: 1rem;
-}
-
 .result {
+  display: flex;
+  align-items: center;
   height: 7rem;
   width: 100%;
   font-size: 3rem;

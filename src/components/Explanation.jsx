@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CharactersArray from "./CharactersArray";
 import styles from "./Explanation.module.css";
 import ExplanationText from "./ExplanationText";
-import Modal from "./Modal";
+import Modal from "./UI/Modal";
 
 const Explanation = ({ infix, postfixData, onClose }) => {
   const [index, setIndex] = useState(0);
