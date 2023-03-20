@@ -122,39 +122,45 @@ export function toPostfix(expression) {
 }
 
 export function calculatePostfix(postfix) {
-  const handleToken = (token) => {
-    if (!isNaN(parseFloat(token))) {
-      stack.push(token);
-      return;
-    }
-
-    const right = parseFloat(stack.pop());
-    const left = parseFloat(stack.pop());
-
-    switch (token) {
-      case "+":
-        stack.push(left + right);
-        return;
-      case "-":
-        stack.push(left - right);
-        return;
-      case "*":
-        stack.push(left * right);
-        return;
-      case "/":
-        stack.push(left / right);
-        return;
-      default:
-        throw new Error(`Invalid token: ${token}`);
-    }
-  };
-
   const stack = [];
+  const stackIterations = [];
+  const rightAndLeftIterations = [];
+
+  let right;
+  let left;
 
   for (let element of postfix) {
-    // console.log(element)
-    handleToken(element);
+    if (!isNaN(element)) {
+      parseFloat(element)
+      stack.push(element)
+    } else {
+      right = parseFloat(stack.pop());
+      left = parseFloat(stack.pop());
+
+      switch (element) {
+        case "+":
+          stack.push(left + right);
+          break;
+        case "-":
+          stack.push(left - right);
+          break;
+        case "*":
+          stack.push(left * right);
+          break;
+        case "/":
+          stack.push(left / right);
+          break;
+        default:
+          throw new Error(`Invalid element: ${element}`);
+      }
+    }
+    iterateAndPushToArray(stack, stackIterations);
+    iterateAndPushToArray([left, right], rightAndLeftIterations);
   }
 
-  return stack.pop();
+  return {
+    answer: stack.pop(),
+    stackIterations,
+    rightAndLeftIterations
+  };
 }
