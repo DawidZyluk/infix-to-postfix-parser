@@ -7,8 +7,13 @@ import Explanation from "./components/Explanation";
 import { toInfix, toPostfix, calculatePostfix } from "./utils/parsingFunctions";
 import PostfixArray from "./components/PostfixArray";
 
-// ADD INPUT VALIDATION, CALCULATION EXPLANATION, OTHER OPERATORS AND FUNCTIONS
-// GET IN CONTROLL OF THE STYLES
+// TODO:
+// MAKE EXPLANATION A REUSABLE COMPONENT 
+// MAKE EXPLANATION TEXT COMPONENT CUSTOM FOR EVERY TYPE OF EXPLANATION
+
+// INPUT VALIDATION
+// CALCULATION EXPLANATION 
+// OTHER OPERATORS AND FUNCTIONS
   
 function App() {
   const [expression, setExpression] = useState("(-1+2)-(2*2)");
