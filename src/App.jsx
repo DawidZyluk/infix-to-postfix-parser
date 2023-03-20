@@ -3,9 +3,8 @@ import "./App.css";
 import CharactersArray from "./components/CharactersArray";
 import Input from "./components/UI/Input";
 import Wrapper from "./components/UI/Wrapper";
-import Explanation from "./components/Explanation";
 import { toInfix, toPostfix, calculatePostfix } from "./utils/parsingFunctions";
-import PostfixArray from "./components/PostfixArray";
+import PostfixArray from "./components/Postfix/PostfixArray";
 
 // TODO:
 // MAKE EXPLANATION A REUSABLE COMPONENT 
