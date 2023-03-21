@@ -9,7 +9,6 @@ import Answer from "./components/Answer/Answer";
 
 // TODO:
 // INPUT VALIDATION
-// CALCULATION EXPLANATION 
 // OTHER OPERATORS AND FUNCTIONS
   
 function App() {

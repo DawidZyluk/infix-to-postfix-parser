@@ -6,7 +6,7 @@ import {
   caseOfOutputing,
 } from "./helperFunctions";
 
-const precedence = new Map([
+export const precedence = new Map([
   ["+", 2],
   ["-", 2],
   ["/", 3],
@@ -123,8 +123,7 @@ export function toPostfix(expression) {
 
 export function calculatePostfix(postfix) {
   const stack = [];
-  const stackIterations = [];
-  const rightAndLeftIterations = [];
+  const stackIterations = [[]];
 
   let right;
   let left;
@@ -155,12 +154,11 @@ export function calculatePostfix(postfix) {
       }
     }
     iterateAndPushToArray(stack, stackIterations);
-    iterateAndPushToArray([left, right], rightAndLeftIterations);
   }
+  stackIterations.push([], [])
 
   return {
     answer: stack.pop(),
-    stackIterations,
-    rightAndLeftIterations
+    stackIterations
   };
 }
