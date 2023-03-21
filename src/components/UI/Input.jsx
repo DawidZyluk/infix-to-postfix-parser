@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Input.module.css";
 
 const Input = ({onSetExpression}) => {
-  const [enteredExpression, setEnteredExpression] = useState("(-1+2)-(2*2)");
+  const [enteredExpression, setEnteredExpression] = useState("4+3+2+1");
 
   const submitHandler = (event) => {
     event.preventDefault();

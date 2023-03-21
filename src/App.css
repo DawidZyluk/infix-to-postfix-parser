@@ -19,11 +19,3 @@ body {
   background-color: rgb(40, 101, 161);
 }
 
-.result {
-  display: flex;
-  align-items: center;
-  height: 7rem;
-  width: 100%;
-  font-size: 3rem;
-  text-align: left;
-}
