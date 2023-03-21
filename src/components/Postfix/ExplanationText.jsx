@@ -3,7 +3,7 @@ import styles from './ExplanationText.module.css'
 
 const ExplanationText = ({operatorType, explanationCase}) => {
   const trueStatements = explanationCase?.shouldProceed?.trueStatements || [];
-  const overallValue = explanationCase?.shouldProceed.value;
+  const overallValue = explanationCase?.shouldProceed?.value;
 
   // console.log(explanationCase.shouldProceed.value)
 
