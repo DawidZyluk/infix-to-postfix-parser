@@ -9,7 +9,6 @@ const AnswerExplanation = ({expression, answerData, onClose}) => {
 
   const postfixExpression = toPostfix(expression).output;
   const maxIndex = answerData.stackIterations.length;
-  console.log(index === maxIndex ? answerData.answer : null);
   return (
     <Explanation index={index} maxIndex={maxIndex} onSetIndex={(index) => setIndex(index)} onClose={onClose}>
       <ExplanationText operatorType={postfixExpression[index-1]} data={answerData.stackIterations} index={index} maxIndex={maxIndex}/>

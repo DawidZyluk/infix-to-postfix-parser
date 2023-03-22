@@ -12,18 +12,23 @@ import Answer from "./components/Answer/Answer";
 // OTHER OPERATORS AND FUNCTIONS
   
 function App() {
-  const [expression, setExpression] = useState("4+3+2+1");
+  const [expression, setExpression] = useState("3*2-(2*-2)");
+  const [isValid, setIsValid] = useState(true);
 
   const setExpressionHandler = (expression) => {
     setExpression(expression);
   }
+
+  const setIsValidHandler = (value) => {
+    setIsValid(value)
+  }
   
   return (
     <Wrapper>
-      <Input onSetExpression={setExpressionHandler}/>
-      <CharactersArray data={toInfix(expression)} name={"Infix array:"} />
+      <Input onSetExpression={setExpressionHandler} onSetValidity={setIsValidHandler}/>
+      {isValid ? <><CharactersArray data={toInfix(expression)} name={"Infix array:"} />
       <PostfixArray expression={expression}/>
-      <Answer expression={expression}/>    
+      <Answer expression={expression}/> </> : <h1>Invalid input</h1>}   
     </Wrapper>
   );
 }

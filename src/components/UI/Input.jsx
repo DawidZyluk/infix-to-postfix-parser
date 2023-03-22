@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { toPostfix, calculatePostfix } from "../../utils/parsingFunctions";
 import styles from "./Input.module.css";
 
-const Input = ({onSetExpression}) => {
-  const [enteredExpression, setEnteredExpression] = useState("4+3+2+1");
+const Input = ({onSetExpression, onSetValidity}) => {
+  const [enteredExpression, setEnteredExpression] = useState("3*2-(2*-2)");
 
   const submitHandler = (event) => {
     event.preventDefault();
     onSetExpression(enteredExpression)
+    try {
+      const res = calculatePostfix(toPostfix(enteredExpression).output)
+      if(isNaN(res.answer)) throw new Error("Invalid input")
+      else onSetValidity(true)
+    } catch(err) {
+      onSetValidity(false)
+    }
   }
 
   return (

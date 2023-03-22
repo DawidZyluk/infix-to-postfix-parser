@@ -8,7 +8,7 @@ const Answer = ({expression}) => {
   
   const postfixData = toPostfix(expression);
   const answerData = calculatePostfix(postfixData.output);
-
+  
   return (
     <div className={styles.answer}>
       Answer: {answerData.answer}
