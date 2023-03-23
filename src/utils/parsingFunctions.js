@@ -150,7 +150,7 @@ export function calculatePostfix(postfix) {
       stack.push(element);
     } else {
       right = parseFloat(stack.pop());
-      left = parseFloat(stack.pop());
+      if(element.length === 1) left = parseFloat(stack.pop());
 
       switch (element) {
         case "+":
