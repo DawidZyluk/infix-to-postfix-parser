@@ -160,8 +160,8 @@ export function calculatePostfix(postfix) {
       parseFloat(element);
       stack.push(element);
     } else {
-      right = parseFloat(stack.pop());
-      if (element.length === 1) left = parseFloat(stack.pop());
+      right = parseFloat(stack.pop()).toPrecision(2);
+      if (element.length === 1) left = parseFloat(stack.pop()).toPrecision(2);
 
       switch (element) {
         case "+":
@@ -180,19 +180,19 @@ export function calculatePostfix(postfix) {
           stack.push(left ** right);
           break;
         case "sin":
-          stack.push(Math.sin(right).toPrecision(2));
+          stack.push(Math.sin(right));
           break;
         case "cos":
-          stack.push(Math.cos(right).toPrecision(2));
+          stack.push(Math.cos(right));
           break;
         case "tan":
-          stack.push(Math.tan(right).toPrecision(2));
+          stack.push(Math.tan(right));
           break;
         case "ctg":
-          stack.push((1 / Math.tan(right)).toPrecision(2));
+          stack.push((1 / Math.tan(right)));
           break;
         case "ln":
-          stack.push(Math.log(right).toPrecision(2));
+          stack.push(Math.log(right));
           break;
         default:
           throw new Error(`Invalid element: ${element}`);
