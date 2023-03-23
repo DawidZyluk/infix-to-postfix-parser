@@ -52,13 +52,14 @@ export function toPostfix(expression) {
       (stack[stack.length - 1] === "(" && char === "-") ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char !== "(")
+        char === '-') 
     ) {
       explanationsLog.push({
         type: "Negation",
         case: caseOfNegation(stringNumber, stack, precedence, char, index),
       });
-      stringNumber += "-";
+      if(!stringNumber.includes('-')) stringNumber += "-";
+      else stringNumber = ""
     } else if (precedence.has(char)) {
       explanationsLog.push({
         type: "Operator",
