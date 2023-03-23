@@ -13,6 +13,10 @@ export const precedence = new Map([
   ["*", 3],
   ["^", 4],
   ["sin", 5],
+  ["cos", 5],
+  ["tan", 5],
+  ["ctg", 5],
+  ["ln", 5],
 ]);
 
 export function toInfix(expression) {
@@ -57,7 +61,9 @@ export function toPostfix(expression) {
     }
     if (
       (char === "-" && index === 0) ||
-      (stack[stack.length - 1] === "(" && char === "-" && (stringNumber.length === 0 || stringNumber === "-")) ||
+      (stack[stack.length - 1] === "(" &&
+        char === "-" &&
+        (stringNumber.length === 0 || stringNumber === "-")) ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
         char === "-")
@@ -66,7 +72,7 @@ export function toPostfix(expression) {
         type: "Negation",
         case: caseOfNegation(stringNumber, stack, precedence, char, index),
       });
-      if(!stringNumber.includes('-')) stringNumber += "-";
+      if (!stringNumber.includes("-")) stringNumber += "-";
       else stringNumber = "";
     } else if (precedence.has(char)) {
       explanationsLog.push({
@@ -85,16 +91,16 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-    } 
+    }
     if (char === "(") {
-      if(functionString.length > 0) {
+      explanationsLog.push({
+        type: "Left parenthesis",
+        case: functionString.length > 0 ? true : false,
+      });
+      if (functionString.length > 0) {
         stack.push(functionString);
         functionString = "";
       }
-      explanationsLog.push({
-        type: "Left parenthesis",
-        case: functionString.length > 0 ? true : false
-      });
       if (functionString.length > 0) {
         stack.push(functionString);
         functionString = "";
@@ -117,7 +123,6 @@ export function toPostfix(expression) {
     }
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
-    iterateAndPushToArray(functionString, functionStringIterations);
     iterateAndPushToArray(functionString, functionStringIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
@@ -156,7 +161,7 @@ export function calculatePostfix(postfix) {
       stack.push(element);
     } else {
       right = parseFloat(stack.pop());
-      if(element.length === 1) left = parseFloat(stack.pop());
+      if (element.length === 1) left = parseFloat(stack.pop());
 
       switch (element) {
         case "+":
@@ -176,6 +181,18 @@ export function calculatePostfix(postfix) {
           break;
         case "sin":
           stack.push(Math.sin(right).toPrecision(2));
+          break;
+        case "cos":
+          stack.push(Math.cos(right).toPrecision(2));
+          break;
+        case "tan":
+          stack.push(Math.tan(right).toPrecision(2));
+          break;
+        case "ctg":
+          stack.push((1 / Math.tan(right)).toPrecision(2));
+          break;
+        case "ln":
+          stack.push(Math.log(right).toPrecision(2));
           break;
         default:
           throw new Error(`Invalid element: ${element}`);
