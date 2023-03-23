@@ -12,7 +12,7 @@ export const precedence = new Map([
   ["/", 3],
   ["*", 3],
   ["^", 4],
-  ["sin", 4],
+  ["sin", 5],
 ]);
 
 export function toInfix(expression) {
@@ -53,14 +53,14 @@ export function toPostfix(expression) {
     }
     if (char >= "a" && char <= "z") {
       functionString += char;
-      explanationsLog.push({ type: "Function" });
+      explanationsLog.push({ type: "Letter" });
     }
     if (
       (char === "-" && index === 0) ||
       (stack[stack.length - 1] === "(" && char === "-") ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char !== "(")
+        char === "-")
     ) {
       explanationsLog.push({
         type: "Negation",
@@ -86,14 +86,15 @@ export function toPostfix(expression) {
       stack.push(char);
     }
     if (char === "(") {
+      explanationsLog.push({
+        type: "Left parenthesis",
+        case: functionString.length > 0 ? true : false
+      });
       if (functionString.length > 0) {
         stack.push(functionString);
         functionString = "";
       }
       stack.push(char);
-      explanationsLog.push({
-        type: "Left parenthesis",
-      });
     }
     if (char === ")") {
       explanationsLog.push({
