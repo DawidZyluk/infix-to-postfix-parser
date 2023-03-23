@@ -5,14 +5,19 @@ import styles from "./Input.module.css";
 const Input = ({onSetExpression, onSetValidity}) => {
   const [enteredExpression, setEnteredExpression] = useState("3*2-(2*-2)");
 
+  // console.log(calculatePostfix(toPostfix(enteredExpression).output))
+
   const submitHandler = (event) => {
     event.preventDefault();
     onSetExpression(enteredExpression)
+
     try {
       const res = calculatePostfix(toPostfix(enteredExpression).output)
       if(isNaN(res.answer)) throw new Error("Invalid input")
       else onSetValidity(true)
+      onSetValidity(true)
     } catch(err) {
+      console.log(err)
       onSetValidity(false)
     }
   }
