@@ -13,7 +13,7 @@ import Answer from "./components/Answer/Answer";
 // OTHER OPERATORS AND FUNCTIONS
   
 function App() {
-  const [expression, setExpression] = useState("(-1+2)-(2*2)");
+  const [expression, setExpression] = useState("sin(2)");
 
   const setExpressionHandler = (expression) => {
     setExpression(expression);
@@ -24,7 +24,7 @@ function App() {
       <Input onSetExpression={setExpressionHandler}/>
       <CharactersArray data={toInfix(expression)} name={"Infix array:"} />
       <PostfixArray expression={expression}/>
-      <Answer expression={expression}/>    
+      {/* <Answer expression={expression}/>     */}
     </Wrapper>
   );
 }

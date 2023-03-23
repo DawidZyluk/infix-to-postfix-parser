@@ -9,7 +9,7 @@ const PostfixArray = ({expression}) => {
   const [showExplanation, setShowExplanation] = useState(false)
 
   const postfixData = toPostfix(expression);
-
+  console.log(postfixData)
 
   return (
     <div className={styles.postfix}>

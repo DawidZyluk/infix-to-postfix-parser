@@ -11,12 +11,14 @@ const precedence = new Map([
   ["-", 2],
   ["/", 3],
   ["*", 3],
+  ["^", 4],
+  ["sin", 4],
 ]);
 
 export function toInfix(expression) {
   let output = [];
   let numberString = "";
-  const operators = new Set(["+", "-", "/", "*", "(", ")"]);
+  const operators = new Set(["+", "-", "/", "*", "(", ")","^"]);
   for (let char of expression) {
     if (operators.has(char)) {
       if (numberString.length > 0) output.push(numberString);
@@ -34,10 +36,12 @@ export function toPostfix(expression) {
   const stackIterations = [];
   const outputIterations = [];
   const stringNumberIterations = [];
+  const functionStringIterations = [];
   const explanationsLog = [];
   const output = [];
   const stack = [];
   let stringNumber = "";
+  let functionString = "";
 
   explanationsLog.push({ type: "Start" });
   for (let index = 0; index < expression.length; index++) {
@@ -47,18 +51,23 @@ export function toPostfix(expression) {
       stringNumber += char;
       explanationsLog.push({ type: "Digit" });
     }
+    if(char >= "a" && char <= "z") {
+      functionString += char;
+      explanationsLog.push({ type: "Function" });
+    }
     if (
       (char === "-" && index === 0) ||
       (stack[stack.length - 1] === "(" && char === "-") ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char !== "(")
+        char === '-') 
     ) {
       explanationsLog.push({
         type: "Negation",
         case: caseOfNegation(stringNumber, stack, precedence, char, index),
       });
-      stringNumber += "-";
+      if(!stringNumber.includes('-')) stringNumber += "-";
+      else stringNumber = ""
     } else if (precedence.has(char)) {
       explanationsLog.push({
         type: "Operator",
@@ -76,8 +85,12 @@ export function toPostfix(expression) {
         output.push(stack.pop());
       }
       stack.push(char);
-    }
+    } 
     if (char === "(") {
+      if(functionString.length > 0) {
+        stack.push(functionString);
+        functionString = "";
+      }
       stack.push(char);
       explanationsLog.push({
         type: "Left parenthesis",
@@ -99,6 +112,7 @@ export function toPostfix(expression) {
     }
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
+    iterateAndPushToArray(functionString, functionStringIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
   }
@@ -115,6 +129,7 @@ export function toPostfix(expression) {
   return {
     output,
     stringNumberIterations,
+    functionStringIterations,
     stackIterations,
     outputIterations,
     explanationsLog,
@@ -144,6 +159,9 @@ export function calculatePostfix(postfix) {
       case "/":
         stack.push(left / right);
         return;
+        case "^":
+          stack.push(left ** right);
+          return;
       default:
         throw new Error(`Invalid token: ${token}`);
     }
