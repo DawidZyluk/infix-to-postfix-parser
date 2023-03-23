@@ -14,6 +14,7 @@ const Input = ({onSetExpression, onSetValidity}) => {
       if(isNaN(res.answer)) throw new Error("Invalid input")
       else onSetValidity(true)
     } catch(err) {
+      console.log(err)
       onSetValidity(false)
     }
   }

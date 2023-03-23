@@ -57,7 +57,7 @@ export function toPostfix(expression) {
     }
     if (
       (char === "-" && index === 0) ||
-      (stack[stack.length - 1] === "(" && char === "-") ||
+      (stack[stack.length - 1] === "(" && char === "-" && stringNumber.length === 0) ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
         char === "-")
@@ -66,7 +66,8 @@ export function toPostfix(expression) {
         type: "Negation",
         case: caseOfNegation(stringNumber, stack, precedence, char, index),
       });
-      stringNumber += "-";
+      if(!stringNumber.includes('-')) stringNumber += "-";
+      else stringNumber = "";
     } else if (precedence.has(char)) {
       explanationsLog.push({
         type: "Operator",

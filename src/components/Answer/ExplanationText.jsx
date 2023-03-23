@@ -7,8 +7,6 @@ const ExplanationText = ({operatorType, data, index, maxIndex}) => {
 
   const lastElement = data[index-1];
 
-  console.log(precedence.get(operatorType))
-
   const renderText = () => {
 
     if(index === 0) return <div className={styles.text}><div className={styles.title}>Start</div>Start the step by step visualization</div>
