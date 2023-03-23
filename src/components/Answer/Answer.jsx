@@ -7,12 +7,13 @@ const Answer = ({expression}) => {
   const [showExplanation, setShowExplanation] = useState(false)
   
   const postfixData = toPostfix(expression);
-
+  const answerData = calculatePostfix(postfixData.output);
+  
   return (
     <div className={styles.answer}>
-      Answer: {calculatePostfix(postfixData.output)}
+      Answer: {answerData.answer}
       <button className={styles.button} onClick={() => setShowExplanation(!showExplanation)}>{!showExplanation && "?"}</button>
-      {showExplanation && <AnswerExplanation onClose={() => setShowExplanation(!showExplanation)}/>}
+      {showExplanation && <AnswerExplanation expression={expression} answerData={answerData} onClose={() => setShowExplanation(!showExplanation)}/>}
     </div>
     
   )

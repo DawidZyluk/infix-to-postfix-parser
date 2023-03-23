@@ -6,19 +6,19 @@ import {
   caseOfOutputing,
 } from "./helperFunctions";
 
-const precedence = new Map([
+export const precedence = new Map([
   ["+", 2],
   ["-", 2],
   ["/", 3],
   ["*", 3],
   ["^", 4],
-  ["sin", 4],
+  ["sin", 5],
 ]);
 
 export function toInfix(expression) {
   let output = [];
   let numberString = "";
-  const operators = new Set(["+", "-", "/", "*", "(", ")","^"]);
+  const operators = new Set(["+", "-", "/", "*", "(", ")", "^"]);
   for (let char of expression) {
     if (operators.has(char)) {
       if (numberString.length > 0) output.push(numberString);
@@ -51,23 +51,23 @@ export function toPostfix(expression) {
       stringNumber += char;
       explanationsLog.push({ type: "Digit" });
     }
-    if(char >= "a" && char <= "z") {
+    if (char >= "a" && char <= "z") {
       functionString += char;
-      explanationsLog.push({ type: "Function" });
+      explanationsLog.push({ type: "Letter" });
     }
     if (
       (char === "-" && index === 0) ||
-      (stack[stack.length - 1] === "(" && char === "-") ||
+      (stack[stack.length - 1] === "(" && char === "-" && (stringNumber.length === 0 || stringNumber === "-")) ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char === '-') 
+        char === "-")
     ) {
       explanationsLog.push({
         type: "Negation",
         case: caseOfNegation(stringNumber, stack, precedence, char, index),
       });
       if(!stringNumber.includes('-')) stringNumber += "-";
-      else stringNumber = ""
+      else stringNumber = "";
     } else if (precedence.has(char)) {
       explanationsLog.push({
         type: "Operator",
@@ -91,10 +91,15 @@ export function toPostfix(expression) {
         stack.push(functionString);
         functionString = "";
       }
-      stack.push(char);
       explanationsLog.push({
         type: "Left parenthesis",
+        case: functionString.length > 0 ? true : false
       });
+      if (functionString.length > 0) {
+        stack.push(functionString);
+        functionString = "";
+      }
+      stack.push(char);
     }
     if (char === ")") {
       explanationsLog.push({
@@ -113,6 +118,7 @@ export function toPostfix(expression) {
 
     iterateAndPushToArray(stringNumber, stringNumberIterations);
     iterateAndPushToArray(functionString, functionStringIterations);
+    iterateAndPushToArray(functionString, functionStringIterations);
     iterateAndPushToArray(stack, stackIterations);
     iterateAndPushToArray(output, outputIterations);
   }
@@ -130,6 +136,7 @@ export function toPostfix(expression) {
     output,
     stringNumberIterations,
     functionStringIterations,
+    functionStringIterations,
     stackIterations,
     outputIterations,
     explanationsLog,
@@ -137,42 +144,49 @@ export function toPostfix(expression) {
 }
 
 export function calculatePostfix(postfix) {
-  const handleToken = (token) => {
-    if (!isNaN(parseFloat(token))) {
-      stack.push(token);
-      return;
-    }
-
-    const right = parseFloat(stack.pop());
-    const left = parseFloat(stack.pop());
-
-    switch (token) {
-      case "+":
-        stack.push(left + right);
-        return;
-      case "-":
-        stack.push(left - right);
-        return;
-      case "*":
-        stack.push(left * right);
-        return;
-      case "/":
-        stack.push(left / right);
-        return;
-        case "^":
-          stack.push(left ** right);
-          return;
-      default:
-        throw new Error(`Invalid token: ${token}`);
-    }
-  };
-
   const stack = [];
+  const stackIterations = [[]];
+
+  let right;
+  let left;
 
   for (let element of postfix) {
-    // console.log(element)
-    handleToken(element);
+    if (!isNaN(element)) {
+      parseFloat(element);
+      stack.push(element);
+    } else {
+      right = parseFloat(stack.pop());
+      if(element.length === 1) left = parseFloat(stack.pop());
+
+      switch (element) {
+        case "+":
+          stack.push(left + right);
+          break;
+        case "-":
+          stack.push(left - right);
+          break;
+        case "*":
+          stack.push(left * right);
+          break;
+        case "/":
+          stack.push(left / right);
+          break;
+        case "^":
+          stack.push(left ** right);
+          break;
+        case "sin":
+          stack.push(Math.sin(right).toPrecision(2));
+          break;
+        default:
+          throw new Error(`Invalid element: ${element}`);
+      }
+    }
+    iterateAndPushToArray(stack, stackIterations);
   }
 
-  return stack.pop();
+  stackIterations.push([], []);
+  return {
+    answer: stack.pop(),
+    stackIterations,
+  };
 }

@@ -11,7 +11,7 @@ const CharactersArray = ({data, name, current, fixed=false}) => {
         <tbody>
           <tr>
             {array.map((element, index) => {
-              return (
+              return (element &&
                 <td key={index} className={`${styles.element} ${current === index && styles.active}`}>
                   {element}
                 </td>

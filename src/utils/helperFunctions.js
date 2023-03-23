@@ -1,30 +1,3 @@
-export function handleToken(token) {
-  if (!isNaN(parseFloat(token))) {
-    stack.push(token);
-    return;
-  }
-
-  const right = parseFloat(stack.pop());
-  const left = parseFloat(stack.pop());
-
-  switch (token) {
-    case "+":
-      stack.push(left + right);
-      return;
-    case "-":
-      stack.push(left - right);
-      return;
-    case "*":
-      stack.push(left * right);
-      return;
-    case "/":
-      stack.push(left / right);
-      return;
-    default:
-      throw new Error(`Invalid token: ${token}`);
-  }
-};
-
 export function iterateAndPushToArray(from, to) {
   function* arrayIterator(array) {
     for (let element of array) {
@@ -47,7 +20,8 @@ export function caseOfNegation(stringNumber, stack, precedence, char, index) {
       stack[stack.length - 1] === "(" && char === "-",
       precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char !== "(")
+        char !== "("),
+    isNegative: evalOr(!stringNumber.includes('-'))
   }
 }
 
