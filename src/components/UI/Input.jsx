@@ -8,6 +8,7 @@ const Input = ({onSetExpression, onSetValidity}) => {
   const submitHandler = (event) => {
     event.preventDefault();
     onSetExpression(enteredExpression)
+
     try {
       const res = calculatePostfix(toPostfix(enteredExpression).output)
       if(isNaN(res.answer)) throw new Error("Invalid input")
