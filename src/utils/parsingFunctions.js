@@ -11,12 +11,13 @@ export const precedence = new Map([
   ["-", 2],
   ["/", 3],
   ["*", 3],
+  ["^", 4],
 ]);
 
 export function toInfix(expression) {
   let output = [];
   let numberString = "";
-  const operators = new Set(["+", "-", "/", "*", "(", ")"]);
+  const operators = new Set(["+", "-", "/", "*", "(", ")","^"]);
   for (let char of expression) {
     if (operators.has(char)) {
       if (numberString.length > 0) output.push(numberString);
@@ -130,8 +131,8 @@ export function calculatePostfix(postfix) {
 
   for (let element of postfix) {
     if (!isNaN(element)) {
-      parseFloat(element)
-      stack.push(element)
+      parseFloat(element);
+      stack.push(element);
     } else {
       right = parseFloat(stack.pop());
       left = parseFloat(stack.pop());
@@ -149,16 +150,19 @@ export function calculatePostfix(postfix) {
         case "/":
           stack.push(left / right);
           break;
+        case "^":
+          stack.push(left ** right);
+          break;
         default:
           throw new Error(`Invalid element: ${element}`);
       }
     }
     iterateAndPushToArray(stack, stackIterations);
   }
-  stackIterations.push([], [])
+  stackIterations.push([], []);
 
   return {
     answer: stack.pop(),
-    stackIterations
+    stackIterations,
   };
 }
