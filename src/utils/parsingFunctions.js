@@ -57,7 +57,7 @@ export function toPostfix(expression) {
     }
     if (
       (char === "-" && index === 0) ||
-      (stack[stack.length - 1] === "(" && char === "-" && stringNumber.length === 0) ||
+      (stack[stack.length - 1] === "(" && char === "-" && (stringNumber.length === 0 || stringNumber === "-")) ||
       (precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
         char === "-")
