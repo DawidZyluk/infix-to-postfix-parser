@@ -17,7 +17,6 @@ const Input = ({onSetExpression, onSetValidity}) => {
       else onSetValidity(true)
       onSetValidity(true)
     } catch(err) {
-      console.log(err)
       onSetValidity(false)
     }
   }
