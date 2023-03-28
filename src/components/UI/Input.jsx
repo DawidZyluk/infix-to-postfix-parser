@@ -30,7 +30,7 @@ const Input = ({onSetExpression, onSetValidity}) => {
         value={enteredExpression}
         onChange={(event) => setEnteredExpression(event.target.value)}
       />
-      <button className={styles["calculate-button"]}>Calculate</button>
+      <button className={styles["calculate-button"]}>=</button>
     </form>
   );
 };

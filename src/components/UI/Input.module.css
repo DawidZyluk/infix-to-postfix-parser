@@ -12,6 +12,10 @@
   flex-grow: 1;
   font-size: 2rem;
   padding-left: 1rem;
+  border: none;
+  border-bottom: 2px solid #dee0e4;
+  color: #3e3e3f;
+
 }
 
 .input:focus {
@@ -19,14 +23,21 @@
 }
 
 .calculate-button {
-  font-weight: 700;
   text-transform: uppercase;
   padding: 0 1rem;
   height: 100%;
   position: absolute;
-  right: 0;
+  right: -1rem;
+  background-color: #dee0e4;
+  border: none;
+  font-size: 3rem;
+  color: #6c6c6f;
+  border-radius: 5px;
+  transition: all .3s;
 }
 
 .calculate-button:hover {
   cursor: pointer;
+  background-color: #b1b2b3;
+
 }
