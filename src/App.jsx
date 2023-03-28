@@ -12,7 +12,7 @@ import Answer from "./components/Answer/Answer";
 // OTHER OPERATORS AND FUNCTIONS
   
 function App() {
-  const [expression, setExpression] = useState("3*2-(2*-2)");
+  const [expression, setExpression] = useState("sin(2)+1/3-ln(2)");
   const [isValid, setIsValid] = useState(true);
 
   const setExpressionHandler = (expression) => {

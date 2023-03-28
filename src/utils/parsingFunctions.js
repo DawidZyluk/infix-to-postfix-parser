@@ -51,7 +51,7 @@ export function toPostfix(expression) {
   for (let index = 0; index < expression.length; index++) {
     const char = expression[index];
 
-    if (char >= "0" && char <= "9") {
+    if ((char >= "0" && char <= "9") || char == ".") {
       stringNumber += char;
       explanationsLog.push({ type: "Digit" });
     }
@@ -155,6 +155,12 @@ export function calculatePostfix(postfix) {
   let right;
   let left;
 
+  const longest = postfix.reduce((a, b) => {
+    return a.length > b.length ? a : b;
+  });
+
+  const precision = longest.length + 1;
+
   for (let element of postfix) {
     if (!isNaN(element)) {
       parseFloat(element);
@@ -165,34 +171,34 @@ export function calculatePostfix(postfix) {
 
       switch (element) {
         case "+":
-          stack.push(left + right);
+          stack.push(parseFloat((left + right).toPrecision(precision)));
           break;
         case "-":
-          stack.push(left - right);
+          stack.push(parseFloat((left - right).toPrecision(precision)));
           break;
         case "*":
-          stack.push(left * right);
+          stack.push(parseFloat((left * right).toPrecision(precision)));
           break;
         case "/":
-          stack.push(left / right);
+          stack.push(parseFloat((left / right).toPrecision(precision)));
           break;
         case "^":
-          stack.push(left ** right);
+          stack.push(parseFloat((left ** right).toPrecision(precision)));
           break;
         case "sin":
-          stack.push(Math.sin(right));
+          stack.push(parseFloat(Math.sin(right).toPrecision(precision)));
           break;
         case "cos":
-          stack.push(Math.cos(right));
+          stack.push(parseFloat(Math.cos(right)).toPrecision(precision));
           break;
         case "tan":
-          stack.push(Math.tan(right));
+          stack.push(parseFloat(Math.tan(right)).toPrecision(precision));
           break;
         case "ctg":
-          stack.push((1 / Math.tan(right)));
+          stack.push(parseFloat((1 / Math.tan(right)).toPrecision(precision)));
           break;
         case "ln":
-          stack.push(Math.log(right));
+          stack.push(parseFloat(Math.log(right).toPrecision(precision)));
           break;
         default:
           throw new Error(`Invalid element: ${element}`);

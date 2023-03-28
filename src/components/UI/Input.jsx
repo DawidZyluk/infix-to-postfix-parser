@@ -3,7 +3,7 @@ import { toPostfix, calculatePostfix } from "../../utils/parsingFunctions";
 import styles from "./Input.module.css";
 
 const Input = ({onSetExpression, onSetValidity}) => {
-  const [enteredExpression, setEnteredExpression] = useState("3*2-(2*-2)");
+  const [enteredExpression, setEnteredExpression] = useState("sin(2)+1/3-ln(2)");
 
   // console.log(calculatePostfix(toPostfix(enteredExpression).output))
 
