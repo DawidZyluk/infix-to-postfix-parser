@@ -20,3 +20,8 @@ body {
   background-color: #f4f4ed;
 }
 
+hr {
+  width: 90%;
+  color: #3e3e3f;
+  margin: 1rem 0;
+}

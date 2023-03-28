@@ -18,6 +18,7 @@ const PostfixExplanation = ({postfixData, expression, onClose}) => {
     <Explanation index={index} maxIndex={maxIndex} onSetIndex={(index) => setIndex(index)} onClose={onClose}>
       <ExplanationText operatorType={currentExplanation.type} explanationCase={currentExplanation.case}/>
       <CharactersArray data={expression} name={"Characters array:"} current={index-1} fixed="true"/>
+      <hr />
       <CharactersArray data={currentStringNumberIteration} name={"String number:"} fixed="true"/>
       <CharactersArray data={currentFunctionStringIteration} name={"Function string:"} fixed="true"/>
       <CharactersArray data={currentStackStep} name={"Stack array:"} fixed="true"/>
