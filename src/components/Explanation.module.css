@@ -2,8 +2,30 @@
   display: flex;
 }
 
+.go-back {
+  align-self: flex-end;
+  border: none;
+  background-color: transparent;
+  line-height: .5;
+}
+
+.go-back:hover {
+  cursor: pointer;
+}
+
 .controls button {
-  padding: 1rem;
+  padding: .8rem .5rem;
+  /* background-color: transparent; */
+  border: none;
+  border-radius: 5px;
+  margin: .2rem;
+  font-size: 2rem;
+  color: #656565;
+}
+
+.controls button:hover {
+  cursor: pointer;
+  background-color: #d8d7d7;
 }
 
 .algorithm {

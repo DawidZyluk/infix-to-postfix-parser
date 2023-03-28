@@ -27,6 +27,10 @@
   background-color: #5BBA6F55;
 }
 
+.overall-false {
+  background-color: #ba5b5b55;
+}
+
 .statement {
   display: inline;
   /* font-weight: 600;  */
@@ -42,4 +46,8 @@
 
 .unmached {
   color: #9a9898;
+}
+
+.indent {
+  margin-left: 1rem;
 }

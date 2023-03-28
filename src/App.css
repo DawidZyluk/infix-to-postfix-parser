@@ -18,10 +18,17 @@ html {
 
 body {
   background-color: #f4f4ed;
+  overflow: hidden;
 }
 
 hr {
   width: 90%;
   color: #3e3e3f;
   margin: 1rem 0;
+}
+
+.material-symbols-outlined {
+  font-size: 2.5rem;
+  color: #515152;
+  font-weight: bold;
 }
