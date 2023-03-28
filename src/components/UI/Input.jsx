@@ -14,9 +14,9 @@ const Input = ({onSetExpression, onSetValidity}) => {
     try {
       const res = calculatePostfix(toPostfix(enteredExpression).output)
       if(isNaN(res.answer)) throw new Error("Invalid input")
-      else onSetValidity(true)
       onSetValidity(true)
     } catch(err) {
+      // console.log(err)
       onSetValidity(false)
     }
   }
