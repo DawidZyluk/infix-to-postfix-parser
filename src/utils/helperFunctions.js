@@ -20,7 +20,8 @@ export function caseOfNegation(stringNumber, stack, precedence, char, index) {
       stack[stack.length - 1] === "(" && char === "-",
       precedence.has(stack[stack.length - 1]) &&
         stringNumber.length === 0 &&
-        char !== "(")
+        char !== "("),
+    isNegative: evalOr(!stringNumber.includes('-'))
   }
 }
 
