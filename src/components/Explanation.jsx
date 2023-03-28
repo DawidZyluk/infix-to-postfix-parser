@@ -12,7 +12,7 @@ const Explanation = ({ index, maxIndex, onSetIndex, onClose, children }) => {
   return (
     <Modal onClose={onClose}>
       <button onClick={onClose} className={styles["go-back"]}>
-        <span class="material-symbols-outlined">close</span>
+        <span className="material-symbols-outlined">close</span>
       </button>
       <div className={styles.controls}>
         <button onClick={() => onSetIndex(0)}>{`<<`}</button>
