@@ -6,7 +6,7 @@
 }
 
 .text {
-  background-color: lightblue;
+  background-color: #dee0e3;
   
   padding: 3rem;
   margin: 2rem 0;
@@ -24,10 +24,6 @@
 
 .overall-true {
   background-color: #38a53855;
-}
-
-.overall-unmached {
-  /* color: #77777755; */
 }
 
 .statement {

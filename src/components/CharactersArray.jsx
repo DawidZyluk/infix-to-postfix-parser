@@ -7,19 +7,16 @@ const CharactersArray = ({data, name, current, fixed=false}) => {
   return (
     <div className={`${fixed ? styles["array-fixed"] : styles.array}`}>
       {name ? <p className={`${fixed ? styles["title-fixed"] : styles.title}`}>{name}</p> : null}
-      <table className={`${fixed ? styles["table-fixed"] : styles.table}`}>
-        <tbody>
-          <tr>
+      <div className={`${fixed ? styles["table-fixed"] : styles.table}`}>
+
             {array.map((element, index) => {
               return (element &&
-                <td key={index} className={`${styles.element} ${current === index && styles.active}`}>
+                <span key={index} className={`${styles.element} ${current === index && styles.active}`}>
                   {element}
-                </td>
+                </span>
               );
             })}
-          </tr>
-        </tbody>
-      </table>
+      </div>
     </div>
   )
 }

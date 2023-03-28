@@ -4,6 +4,7 @@
   margin: 10rem auto;
   width: 100rem;
   padding: 5rem;
-  background-color: aliceblue;
+  background-color: #ffffff;
   border-radius: 1rem;
+  box-shadow: 1rem 1rem 3rem #00000055;
 }

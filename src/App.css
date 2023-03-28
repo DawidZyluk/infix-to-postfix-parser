@@ -13,9 +13,10 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   font-family: 'Open Sans', sans-serif;
+  color: #3e3e3f;
 }
 
 body {
-  background-color: rgb(40, 101, 161);
+  background-color: #f4f4ed;
 }
 

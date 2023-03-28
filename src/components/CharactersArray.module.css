@@ -19,7 +19,7 @@
 
 .title {
   margin-right: 2rem;
-  
+
 }
 
 .title-fixed {
@@ -41,11 +41,15 @@
 }
 
 .element {
-  background-color: lightblue;
-  border: 1px solid black;
+  background-color: #dee0e4;
   padding: .2rem .6rem;
+  margin-right: .5rem;
+  border-radius: 5px;
+  box-shadow: .3rem .3rem .6rem #11111122;
 }
 
 .active {
-  background-color:crimson;
+  background-color: #8093f1;
+  color: white;
+  display: inline-block;
 }
