@@ -5,21 +5,44 @@
   width: 100%;
   height: 100vh;
   z-index: 20;
-  /* background-color: rgba(0, 0, 0, 0.55); */
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .modal {
-  position: fixed;
+  /* position: fixed;
   top: 9rem;
   left: 50%;
-  width: 110rem;
+  width: 65%;
+  transform: translateX(-50%); */
+  position: absolute;
+  left: 50%;
   transform: translateX(-50%);
+  width: 65%;
+  height: 70vh;
+  overflow-y: scroll;
   background-color: white;
   padding: 4rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
+  scrollbar-width: auto;
+  scrollbar-color: #8f8f8f #ffffff;
+}
+
+.modal::-webkit-scrollbar {
+  width: 2.3rem;
+}
+
+.modal::-webkit-scrollbar-track {
+  margin: .3rem;
+  background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background-color: #8f8f8f;
+  border-radius: 4rem;
+  border: 1rem solid #ffffff;
 }
 
 .content {

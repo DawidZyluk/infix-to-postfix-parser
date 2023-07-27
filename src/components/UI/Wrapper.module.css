@@ -2,10 +2,50 @@
   flex-direction: column;
   align-items: center;
   margin: 10rem auto;
-  width: 100rem;
+  width: 60%;
   padding: 5rem;
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-
 }
+
+@media only screen and (max-width: 1920px) {
+  .wrapper {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1720px) {
+  .wrapper {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .wrapper {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 1240px) {
+  .wrapper {
+    width: 77%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .wrapper {
+    margin: 8rem auto;
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .wrapper {
+    margin: 5rem auto;
+    width: 95%;
+  }
+}
+
+
+
