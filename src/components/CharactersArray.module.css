@@ -82,14 +82,14 @@
 
   .title-fixed {
     margin-right: 1rem;
-    width: 22rem;
+    width: 20rem;
     text-align: right;
     font-size: 2.5rem;
   }
 
   .table-fixed {
     position: absolute;
-    left: 23.5rem;
+    left: 21.5rem;
   }
 }
 

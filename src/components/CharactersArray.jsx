@@ -3,7 +3,7 @@ import styles from './CharactersArray.module.css'
 
 const CharactersArray = ({data, name, current, fixed=false}) => {
   const array = data ? [...data] : [];
-
+  
   return (
     <div className={`${fixed ? styles["array-container"] : styles["array-container-fit-content"]}`}>
       <div className={`${fixed ? styles["array-fixed"] : styles.array}`}>

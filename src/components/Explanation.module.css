@@ -1,5 +1,26 @@
-.controls {
+.buttons {
   display: flex;
+}
+
+.content {
+  width: 90%;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.content::-webkit-scrollbar {
+  width: 1.8rem;
+}
+
+.content::-webkit-scrollbar-track {
+  margin: 0.3rem;
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: #8f8f8f;
+  border-radius: 4rem;
+  border: .7rem solid #ffffff;
 }
 
 .go-back {
@@ -13,7 +34,7 @@
   cursor: pointer;
 }
 
-.controls button {
+.buttons button {
   padding: .8rem .5rem;
   /* background-color: transparent; */
   border: none;
@@ -23,7 +44,7 @@
   color: #656565;
 }
 
-.controls button:hover {
+.buttons button:hover {
   cursor: pointer;
   background-color: #d8d7d7;
 }
@@ -39,4 +60,24 @@
 .stepsCounter {
   margin-top: .6rem;
   font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .buttons button {
+    padding: 1.4rem 2.7rem;
+    /* background-color: transparent; */
+    border: none;
+    border-radius: 5px;
+    margin: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #656565;
+  }
+
+  .stepsCounter {
+    margin-top: .6rem;
+    font-size: 1.7rem;
+    margin-bottom: 1.7rem;
+  }
 }

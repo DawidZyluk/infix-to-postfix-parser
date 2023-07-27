@@ -14,7 +14,7 @@ const Explanation = ({ index, maxIndex, onSetIndex, onClose, children }) => {
       <button onClick={onClose} className={styles["go-back"]}>
         <span className="material-symbols-outlined">close</span>
       </button>
-      <div className={styles.controls}>
+      <div className={styles.buttons}>
         <button onClick={() => onSetIndex(0)}>{`<<`}</button>
         <button onClick={() => clickHandler(-1)}>{`<`}</button>
         <button onClick={() => clickHandler(1)}>{`>`}</button>
@@ -23,7 +23,7 @@ const Explanation = ({ index, maxIndex, onSetIndex, onClose, children }) => {
       <div className={styles.stepsCounter}>
         {index + 1} / {maxIndex}
       </div>
-      {children}
+      <div className={styles.content}>{children}</div>
     </Modal>
   );
 };

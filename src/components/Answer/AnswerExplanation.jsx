@@ -6,7 +6,7 @@ import { toPostfix } from '../../utils/parsingFunctions';
 
 const AnswerExplanation = ({expression, answerData, onClose}) => {
   const [index, setIndex] = useState(0);
-
+  
   const postfixExpression = toPostfix(expression).output;
   const maxIndex = answerData.stackIterations.length;
   return (
@@ -15,7 +15,7 @@ const AnswerExplanation = ({expression, answerData, onClose}) => {
       <CharactersArray data={postfixExpression} current={index-1} name={"Postfix array:"} fixed="true"/>
       <hr />
       <CharactersArray data={answerData.stackIterations[index-1]} name={"Stack array:"} fixed="true"/>
-      <p style={{fontSize: "2.5rem", width: "100%", paddingLeft: "15.6rem", marginTop: ".3rem"}}>Answer: {index === maxIndex-1 ? answerData.answer : null}</p>
+      <CharactersArray data={index === maxIndex-1 ? [[answerData.answer]] : null} name={"Answer:"} fixed="true"/>
     </Explanation>
   )
 }
