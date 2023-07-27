@@ -1,7 +1,6 @@
 .array-container {
   width: 100%;
   overflow-x: auto;
-  scrollbar-width: none;
 }
 
 .array-container-fit-content {
@@ -70,17 +69,6 @@
   display: inline-block;
 }
 
-@media only screen and (max-width: 1440px) {
-  .array-fixed {
-    display: block;
-    height: 10rem;
-  }
-
-  .table-fixed {
-    left: 5rem;
-  }
-}
-
 @media only screen and (max-width: 768px) {
   .array {
     margin-top: 1rem;
@@ -91,4 +79,17 @@
   .title {
     margin-bottom: .3rem;
   }
+
+  .title-fixed {
+    margin-right: 1rem;
+    width: 22rem;
+    text-align: right;
+    font-size: 2.5rem;
+  }
+
+  .table-fixed {
+    position: absolute;
+    left: 23.5rem;
+  }
 }
+

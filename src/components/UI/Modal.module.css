@@ -9,16 +9,11 @@
 }
 
 .modal {
-  /* position: fixed;
-  top: 9rem;
-  left: 50%;
-  width: 65%;
-  transform: translateX(-50%); */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 65%;
-  height: 70vh;
+  height: 80vh;
   overflow-y: scroll;
   background-color: white;
   padding: 4rem;
@@ -35,7 +30,7 @@
 }
 
 .modal::-webkit-scrollbar-track {
-  margin: .3rem;
+  margin: 0.3rem;
   background: transparent;
 }
 
@@ -73,3 +68,35 @@
       transform: translateX(-50%);
     }
   } */
+
+@media only screen and (max-width: 1440px) {
+  .modal {
+    width: 75%;
+    height: 80vh;
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .modal {
+    width: 85%;
+    height: 85vh;
+    padding: 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .modal {
+    width: 90%;
+    height: 90vh;
+    /* padding: 1rem; */
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .modal {
+    width: 90%;
+    height: 80vh;
+    /* padding: 1rem; */
+  }
+}
