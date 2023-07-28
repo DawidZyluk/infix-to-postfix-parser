@@ -10,11 +10,11 @@
 
 .modal {
   position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: 65%;
-  height: 80vh;
-  /* overflow-y: scroll; */
+  /* height: 80vh; */
   background-color: white;
   padding: 3rem;
   border-radius: 14px;
@@ -23,6 +23,14 @@
   animation: slide-down 300ms ease-out forwards;
   scrollbar-width: auto;
   scrollbar-color: #8f8f8f #ffffff;
+}
+
+.children {
+  max-height: 97%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal::-webkit-scrollbar {
@@ -38,16 +46,6 @@
   background-color: #8f8f8f;
   border-radius: 4rem;
   border: 1rem solid #ffffff;
-}
-
-.children {
-  max-height: 97%;
-  overflow: auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* max-height: 60rem; */
 }
 
 /* @media (min-width: 768px) {
@@ -73,7 +71,7 @@
 @media only screen and (max-width: 1440px) {
   .modal {
     width: 75%;
-    height: 80vh;
+    /* height: 60vh; */
     padding: 2rem;
   }
 }
@@ -81,7 +79,7 @@
 @media only screen and (max-width: 1024px) {
   .modal {
     width: 85%;
-    height: 75vh;
+    /* height: 70vh; */
     padding: 1rem;
   }
 }
@@ -89,7 +87,7 @@
 @media only screen and (max-width: 768px) {
   .modal {
     width: 90%;
-    height: 75vh;
+    /* height: 75vh; */
     /* padding: 1rem; */
   }
 }
@@ -97,7 +95,33 @@
 @media only screen and (max-width: 425px) {
   .modal {
     width: 90%;
-    height: 80vh;
+    /* height: 80vh; */
     /* padding: 1rem; */
+  }
+}
+
+/* ######################################################### */
+
+@media only screen and (max-height: 1000px) and (min-width: 1920px) {
+  .modal {
+    height: 80vh;
+  }
+}
+
+@media only screen and (max-height: 700px) and (max-width: 1920px) {
+  .modal {
+    height: 80vh;
+  }
+}
+
+@media only screen and (max-height: 700px) and (max-width: 768px) {
+  .modal {
+    height: fit-content;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  .modal {
+    height: 80vh;
   }
 }

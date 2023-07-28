@@ -1,8 +1,13 @@
 .wrapper {
   flex-direction: column;
   align-items: center;
-  margin: 10rem auto;
-  width: 60%;
+  /* margin: 10rem auto;  */
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 10rem 0;
+  width: 65%;
   padding: 5rem;
   background-color: #ffffff;
   border-radius: 1rem;
@@ -47,5 +52,20 @@
   }
 }
 
+/* ########################################################## */
+
+@media only screen and (max-height: 700px) {
+  .wrapper {
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media only screen and (max-height: 425px) {
+  .wrapper {
+    margin: 10rem 0;
+  }
+}
 
 
