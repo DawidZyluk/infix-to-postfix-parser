@@ -1,4 +1,6 @@
 # infix-to-postfix-parser
+
+![image](https://github.com/DawidZyluk/infix-to-postfix-parser/assets/91137753/c6ba20a7-b6f6-4bb7-aff8-ff82482ff0d7)
 This React project focuses on implementing a parser that converts mathematical expressions written in infix notation to postfix notation. Infix notation is the commonly used mathematical notation where operators are placed between operands, such as 2 + 3 * 4. Postfix notation, also known as Reverse Polish Notation (RPN), represents the same expression as 2 3 4 * +.
 
 The primary goal of this project is to provide a user-friendly interface where users can input infix expressions and obtain their equivalent postfix representations. By parsing and converting infix expressions to postfix notation, users can benefit from the simplicity and efficiency of postfix notation when evaluating mathematical expressions.
