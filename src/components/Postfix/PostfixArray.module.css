@@ -1,6 +1,11 @@
+.postfix-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .postfix {
   overflow-x: auto;
-  width: 100%;
+  width: fit-content;
   display: flex;
   align-items: center;
 }

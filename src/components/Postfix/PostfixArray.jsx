@@ -12,10 +12,12 @@ const PostfixArray = ({expression}) => {
   // console.log(postfixData.functionStringIterations)
 
   return (
-    <div className={styles.postfix}>
+    <div className={styles["postfix-wrapper"]}>
+      <div className={styles.postfix}>
       <CharactersArray data={postfixData.output} name={"Postfix array:"} />
-      <button className={styles.button} onClick={() => setShowExplanation(!showExplanation)}>{!showExplanation && "?"}</button>
       {showExplanation && <PostfixExplanation postfixData={postfixData} expression={expression} onClose={() => setShowExplanation(!showExplanation)}/>}
+    </div>
+    <button className={styles.button} onClick={() => setShowExplanation(!showExplanation)}>{!showExplanation && "?"}</button>
     </div>
   )
 }
